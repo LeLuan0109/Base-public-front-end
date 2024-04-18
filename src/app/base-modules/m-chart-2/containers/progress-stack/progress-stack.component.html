@@ -1,0 +1,26 @@
+<div class="progressbar-box" [class]="styleClass">
+    <span class="text-label col-6">
+        <span *ngIf="isCollapse" [ngClass]="pgCollapse ? 'bi bi-caret-down-fill':  'bi bi-caret-right-fill'"
+            (click)="onCollapse()" class="cursor-pointer"></span>
+        {{label}}
+    </span>
+    <div class="col-6 flex progress-box">
+        <div class="percent-box w-10" pTooltip="{{viewHtml()}}" tooltipPosition="top" [escape]="false"
+            [fitContent]="true" tooltipStyleClass="custom-tooltip " [appendTo]="'body'"
+            (click)="onProgress(value!,'all' , $event)">
+            <div class=" percent-stacked custom-progress" *ngIf="value && value.length > 0"
+                [style.width]="ratioMax  +'%'">
+                <div class="percent-item" *ngFor="let item of value; let i = $index"
+                    [style.width]="getRatio(item) +'%' " [style.background-color]="item?.color"
+                    (click)="onProgress(item ,'single',  $event)" class="cursor-pointer">
+                    <span class="percent " *ngIf="showPercent">
+                        {{getRatio(item)|number:'1.0-2'}}%
+                    </span>
+                </div>
+            </div>
+        </div>
+        <span class="text-total w-2" *ngIf="total && showValue">
+            {{total|number : '1.0-0'}} {{totalLabel}}
+        </span>
+    </div> 
+</div>

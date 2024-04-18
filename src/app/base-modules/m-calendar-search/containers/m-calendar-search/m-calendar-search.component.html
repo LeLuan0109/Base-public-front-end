@@ -1,0 +1,38 @@
+<div class="search-box">
+  <span class="label">
+    {{label}}
+    <strong class="cursor-pointer" (click)="opDate.toggle($event)">
+      {{ timelineLabel }}
+      <i class="pi pi-angle-down"></i>
+    </strong>
+  </span>
+  <p-overlayPanel #opDate (onHide)="onHisde()" class="calendar-box">
+    <ng-template pTemplate>
+      <div class="flex">
+        <div class="time-left">
+          <p-listbox styleClass="custom-listbox" [options]="options" [(ngModel)]="timeline"
+            (onChange)="changeTimeline()"></p-listbox>
+        </div>
+        <p-divider layout="vertical"></p-divider>
+        <div class="time-right">
+          <p-calendar [(ngModel)]="rangeDates" [inline]="true" [showWeek]="false" selectionMode="range"
+            [numberOfMonths]="2" [minDate]="minDate" [maxDate]="maxDate" [defaultDate]="defaultDate"
+            (onSelect)="selectDate()"></p-calendar>
+          <div class="flex align-items-center">
+            <span class="time-view" *ngIf="rangeDates[1]">
+              Từ {{ rangeDates[0] | date: formatDate }} tới
+              {{ rangeDates[1] | date: formatDate }}
+            </span>
+            <span class="time-view" *ngIf="!rangeDates[1]">
+              Ngày {{ rangeDates[0] | date: formatDate }}
+            </span>
+            <span class="time-button">
+              <p-button label="Hủy" (onClick)="opDate.hide()"></p-button>
+              <p-button label="Áp dụng" (onClick)="search(opDate)"></p-button>
+            </span>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </p-overlayPanel>
+</div>

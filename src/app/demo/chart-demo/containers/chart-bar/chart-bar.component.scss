@@ -1,0 +1,25 @@
+.legend {
+    display: block;
+    margin: 15px 0 0 0;
+    padding: 0;
+    text-align: center;
+    li {
+      list-style: none;
+      display: inline-flex;
+      margin-right: 25px;
+      align-items: center;
+      cursor: pointer;
+      .box {
+        margin-right: 10px;
+        width: 17px;
+        height: 10px;
+        border-radius: 3px;
+      }
+      &.hidden-chart {
+        span {
+          text-decoration: line-through;
+        }
+      }
+    }
+  }
+  

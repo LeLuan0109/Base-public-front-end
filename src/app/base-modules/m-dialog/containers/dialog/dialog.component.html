@@ -1,0 +1,14 @@
+<!-- <p-sidebar [(visible)]="display" position="right" autoZIndex="true" [modal]="true" [dismissible]="false"
+  styleClass="custom-sidebar" [style]="{width:'70vw'}" [showCloseIcon]="false">
+  <span class="close mt-3">
+    <button pButton icon="pi pi-times" class="p-button-warning p-button-outlined" (click)="close()"></button>
+  </span>
+  <ng-template appInsertion></ng-template>
+</p-sidebar> -->
+<p-dialog [(visible)]="display" autoZIndex="true" [modal]="true" 
+styleClass="custom-dialog" [style]="{width:'70vw'}" [showHeader]="false">
+  <span class="close mt-2">
+    <button pButton icon="pi pi-times" class="p-button-warning p-button-outlined" (click)="close()"></button>
+  </span>
+  <ng-template appInsertion></ng-template>
+</p-dialog>

@@ -1,0 +1,97 @@
+<p-toolbar [delegateKeys]="delegateKeys" [selectedItems]="selectedItems" [itemCount]="totalElement"
+  (onClick)="toolBarClick($event)">
+</p-toolbar>
+<div class="grid">
+  <div class="col-12">
+    <p-table [lazy]="true" (onLazyLoad)="lazyLoadAccount($event)" [value]="accounts" [rows]="10" [paginator]="true"
+      [totalRecords]="totalElement" class="data-table" styleClass="datatable-responsive" [(selection)]="selectedItems">
+      <ng-template pTemplate="header">
+        <tr>
+          <th width="120" class="text-left">
+            <p-tableHeaderCheckbox class="mr-5"></p-tableHeaderCheckbox> STT
+          </th>
+          <th>Email</th>
+          <th>Tên người dùng</th>
+          <!-- <th>Số điện thoại</th> -->
+          <th>Ngày tạo</th>
+          <th>Trạng thái</th>
+          <th width="200px">Thao tác</th>
+        </tr>
+        <tr>
+          <td></td>
+          <td>
+            <p-columnFilter type="text" field="username" matchMode="in" [showMenu]="false"
+              placeholder="Email"></p-columnFilter>
+          </td>
+          <td>
+            <p-columnFilter type="text" field="fullName" matchMode="in" [showMenu]="false"
+              placeholder="Tên người dùng"></p-columnFilter>
+          </td>
+          <td>
+            <p-columnFilter type="text" field="created" matchMode="in" [showMenu]="false" [showClearButton]="false">
+              <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                <p-calendar [dateFormat]="'dd/mm/yy'" [ngModel]="value" [appendTo]="'body'" [monthNavigator]="true"
+                  [yearNavigator]="true" [readonlyInput]="true" showButtonBar="true" (onSelect)="filter($event)"
+                  [showIcon]="true" [maxDate]="now" [showClear]="true" (onClear)="filter()" placeholder="Ngày tạo">
+                </p-calendar>
+              </ng-template>
+            </p-columnFilter>
+          </td>
+          <td>
+            <p-columnFilter field="status" matchMode="in" [showMenu]="false" [showClearButton]="false">
+              <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                <p-dropdown [ngModel]="value" [options]="statusOpt" (onChange)="filter($event.value)"
+                  placeholder="Chọn trạng thái" [showClear]="true" [appendTo]="'body'">
+                </p-dropdown>
+              </ng-template>
+            </p-columnFilter>
+          </td>
+          <td>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-item let-i="rowIndex">
+        <tr>
+          <td width="120" class="text-left">
+            <p-tableCheckbox [value]="item" class="mr-5"></p-tableCheckbox>
+            {{ i + 1 }}
+          </td>
+          <td>
+            <span class="p-column-title">Email</span>{{item.username}}
+          </td>
+          <td>
+            <span class="p-column-title">Tên người dùng</span>{{item.fullName}}
+          </td>
+          <!-- <td>
+            <span class="p-column-title">Số điện thoại</span>{{item.phone}}
+          </td> -->
+          <td>
+            <span class="p-column-title">Ngày tạo</span>{{item.created | date: 'dd/MM/yyyy'}}
+          </td>
+          <td>
+            <span class="p-column-title">Trạng thái</span>
+            <span class="status_{{item.status}}">{{statusObj[item.status]}}</span>
+          </td>
+          <td width="200px">
+            <span class="p-column-title">Thao tác</span>
+            <m-tooltable [delegateKeys]="delegateKeys" [isUpdateStatus]="true"
+              [labelUpdateStatus]="status.deactive.value === item.status ? 'Kích hoạt tài khoản' : 'Khoá tài khoản'"
+              [iconUpdateStatus]="status.deactive.value === item.status ? 'pi pi-check-circle' : 'pi pi-power-off'"
+              (onClick)="toolTableClick($event, item)" [isAdd]="true" labelAdd="Cập nhật mật khẩu"
+              [disabledDelete]="item.admin" [disabledUpdateStatus]="item.admin" iconAdd="pi pi-key"></m-tooltable>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td style="background-color:#fafafb" [attr.colspan]="6" class="text-center">
+            Không tìm thấy kết quả
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>
+
+<p-confirmDialog icon="pi pi-info-circle" [closable]="false" class="confirmDialog" [header]="'Thông báo hệ thống'"
+  [style]="{width: '90vw', 'max-width': '500px'}"></p-confirmDialog>

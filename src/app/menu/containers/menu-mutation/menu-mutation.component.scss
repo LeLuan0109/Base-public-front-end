@@ -1,0 +1,13 @@
+.icons-list {
+    text-align: center;
+    width: 100%;
+    >div {
+        cursor: pointer;
+    }
+}
+.icon-value {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translate(0%, -50%);
+}

@@ -1,0 +1,35 @@
+<m-card [title]="'Xu hướng thảo luận'" styleClass="h-50 min-h-300">
+  <div class="col-4 flex justify-content-end searchTime">
+    <!-- <span *ngFor="let item of optTime" class="mr-2">
+      <span class="cursor-pointer {{item.active ? 'active' : ''}} ">{{item.lable}} </span>
+    </span> -->
+  </div>
+  <div class="grid chart-box">
+    <div class="col-12">
+      <div class="description">
+        <span class="total-count ml-0">{{ total | number : '1.0-0' }}</span>
+        <span>thảo luận</span>
+      </div>
+      <div class="comparation">
+        <div class="flex align-items-center">
+          <span class="growth-rate">{{ growthRate | number : '1.2-2' }}%</span>
+          <span class="flex">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
+              <path
+                d="M22.6663 9.33325L9.33301 22.6666M22.6663 9.33325H10.6663M22.6663 9.33325V21.3333"
+                stroke="var(--green)"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </span>
+        </div>
+        <div class="flex align-items-end">so với {{ timeLineLabel }}</div>
+      </div>
+    </div>
+    <div class="col-12">
+      <highcharts-chart *ngIf="options" #chartRef [Highcharts]="Highcharts" [options]="options" class="main-chart"> </highcharts-chart>
+    </div>
+  </div>
+</m-card>

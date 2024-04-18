@@ -1,0 +1,77 @@
+<app-dialog-header>
+  {{title}}
+</app-dialog-header>
+<app-dialog-content>
+  <form [formGroup]="mutationForm!" autocomplete="off" role="presentation">
+    <div class="p-fluid pt-0" [ngClass]="{'p-disabled p-view view' : action === 'view'}">
+      <div class="grid mt-3">
+        <div class="field col-12 md:col-6">
+          <span class="p-float-label">
+            <p-dropdown formControlName="timesType" [options]="timesTypeOpt" [inputId]="timesType" [appendTo]="'body'"
+              placeholder="&nbsp;">
+            </p-dropdown>
+            <label for="timesType">
+              Loại cảnh báo
+              <span class="p-error">*</span>
+            </label>
+          </span>
+          <span class="p-error" *ngIf="timesType.errors && (timesType.dirty || timesType.touched ) ">
+            <small *ngIf="timesType.errors['required']">Loại cảnh báo không được để trống</small>
+          </span>
+        </div>
+        <div class="field col-12 md:col-6">
+          <span class="p-float-label">
+            <input id="title" type="text" pInputText formControlName="title">
+            <label for="title">
+              Tiêu đề
+              <span class="p-error">*</span>
+            </label>
+          </span>
+          <span class="p-error" *ngIf="sendTitle.errors && (sendTitle.dirty || sendTitle.touched ) ">
+            <small *ngIf="sendTitle.errors['required']">Tiêu đề không được để trống</small>
+          </span>
+        </div>
+      </div>
+      <div class="grid mt-2">
+        <div class="field col-12 md:col-4">
+          <span class="p-float-label">
+            <p-inputNumber id="posts" type="text" formControlName="posts"></p-inputNumber>
+            <label for="posts">
+              Lượng tin bài
+              <span class="p-error">*</span>
+            </label>
+          </span>
+        </div>
+        <div class="field col-12 md:col-4">
+          <span class="p-float-label">
+            <p-inputNumber id="interact" type="text" formControlName="interact"></p-inputNumber>
+            <label for="interact">
+              Lượng tương tác
+              <span class="p-error">*</span>
+            </label>
+          </span>
+        </div>
+        <div class="field col-12 md:col-4">
+          <span class="p-float-label">
+            <p-inputNumber id="negative" type="text" formControlName="negative"></p-inputNumber>
+            <label for="negative">
+              Lượng tiêu cực
+              <span class="p-error">*</span>
+            </label>
+          </span>
+        </div>
+      </div>
+      <div class="grid mt-2">
+        <div class="field col-12 md:col-12">
+          <p-checkbox label="Cảnh báo qua email" class="mr-4" [binary]="true" formControlName="email"></p-checkbox>
+          <p-checkbox label="Cảnh báo qua notification" [binary]="true" formControlName="ntfApp"></p-checkbox>
+        </div>
+      </div>
+    </div>
+  </form>
+</app-dialog-content>
+
+<app-dialog-footer [isOnSave]="action !== 'view'" [isOnSaveContinue]="action === 'insert'" (onSave)="save()"
+  (onSaveContinue)="save(false)" (onClose)="close()" [disabledSave]="mutationForm?.invalid"
+  [cancelLabel]="action === 'view' ? 'Đóng' : 'Huỷ'">
+</app-dialog-footer>

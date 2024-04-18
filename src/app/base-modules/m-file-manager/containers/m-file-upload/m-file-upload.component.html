@@ -1,0 +1,30 @@
+<input #fileUpload type="file" id="file" class="inputfile" (change)='selectFile($event)'>
+<div class="upload-file-box">
+  <span class="file-box">
+    <span class="file-text">{{file?.name}}</span>
+    <label for="file" class="file-button">
+      <i class="pi pi-plus" aria-hidden="true"></i>
+      {{fileType === 'image' ? 'Chọn ảnh' : 'Chọn file'}}
+    </label>
+    <span class="pi pi-times clear" *ngIf="file" (click)="clearFile(fileUpload)"></span>
+  </span>
+  <span class="upload-buttom">
+    <p-button icon="pi pi-upload" label="Upload file" styleClass="custom-button green" [disabled]="!file"
+      (onClick)="uploadFile(fileUpload)"></p-button>
+  </span>
+</div>
+<div class="folder-box" *ngIf="isShowFolder">
+  <div class="folder-content">
+    <span class="close pi pi-times" (click)="cancelAddFolder()"></span>
+    <div class="folder-select">
+      <p-dropdown [options]="foldersOpt" [(ngModel)]="folder" placeholder="Chọn thư mục"
+        styleClass="w-full"></p-dropdown>
+    </div>
+    <div class="folder-footer">
+      <p-button icon="pi pi-upload" label="Upload file" styleClass="custom-button green" [disabled]="!folder"
+        (onClick)="uploadFile(fileUpload)" class="mr-2"></p-button>
+      <p-button icon="pi pi-times" label="Hủy" styleClass="custom-button red"
+        (onClick)="cancelAddFolder()"></p-button>
+    </div>
+  </div>
+</div>

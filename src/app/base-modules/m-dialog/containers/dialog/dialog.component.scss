@@ -1,0 +1,18 @@
+.close {
+  display: block;
+  position: absolute;
+  right: 15px;
+  z-index: 1000;
+
+  button {
+    background: #52347f;
+    border-radius: 50%;
+    border: none;
+    // color: #495057;
+
+    &:focus {
+      outline: none;
+      box-shadow: none;
+    }
+  }
+}

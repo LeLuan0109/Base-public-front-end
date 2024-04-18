@@ -1,0 +1,34 @@
+<div class="header">
+    <h2>Tải lên</h2>
+    <span class="close" (click)="close()">
+        <i class="pi pi-times"></i>
+    </span>
+</div>
+
+<app-dialog-content>
+    <div class="grid text-center">
+        <div class="col-12">
+            <p>Tải lên người dùng sử dụng file định dạng .xlsx hoặc .xls</p>
+            <p>Tham khảo file mẫu: <a class="no-underline" href="javascript:void(0);" (click)="getTemplate()"><i
+                        class="pi pi-cloud-download mr-1"></i>Tải mẫu</a></p>
+            <span class="note">
+                <b>Lưu ý:</b>
+                <ul>
+                    <li>Nhóm người dùng được lấy "ID" từ danh sách nhóm người dùng trong mẫu</li>
+                </ul>
+            </span>
+            <input #fileUpload type="file" style="display: none;" (change)="onChange($event)" />
+            <div class="file">
+                <label>{{file?.name ?? 'Tên file'}}</label>
+                <p-button pRipple icon="pi pi-plus" label="Chọn tệp"
+                    styleClass="p-button-rounded p-button-secondary p-button-text pt-2 pb-2 pl-3 pr-3" class="choose"
+                    (onClick)="onChoose(fileUpload)">
+                </p-button>
+            </div>
+            <p-button type="button" icon="pi pi-upload" label="Tải lên"
+                styleClass="p-button-rounded p-button-primary p-button-text pt-2 pb-2 text-white pl-3 pr-3"
+                (onClick)="onUpload()" class="mr-1" [disabled]="!file">
+            </p-button>
+        </div>
+    </div>
+</app-dialog-content>

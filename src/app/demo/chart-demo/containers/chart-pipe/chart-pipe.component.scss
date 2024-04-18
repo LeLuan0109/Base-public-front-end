@@ -1,0 +1,125 @@
+.title {
+    font-size: 22px;
+    font-weight: 300;
+    line-height: 24px;
+    color: #000;
+    margin: 0;
+    padding: 0;
+  }
+  .chart {
+    display: block;
+    position: relative;
+    text-align: center;
+    margin-top: 20px;
+    .bi {
+      position: absolute;
+      &.bi-emoji-smile {
+        bottom: 11px;
+        right: 34px;
+        color: #45bcad;
+      }
+      &.bi-emoji-neutral {
+        top: -5px;
+        left: 50%;
+        transform: translate(-50%, 0);
+        color: #d7d7f5;
+      }
+      &.bi-emoji-frown {
+        bottom: 11px;
+        left: 34px;
+        color: #d32f2f;
+      }
+    }
+    &::after,
+    &::before {
+      position: absolute;
+      content: "";
+      width: 40%;
+      height: 1px;
+      bottom: 8px;
+    }
+    &::after {
+      right: 50%;
+      background-color: #d32f2f;
+    }
+    &::before {
+      left: 50%;
+      background-color: #45bcad;
+    }
+    .label {
+      position: absolute;
+      display: flex;
+      padding: 0;
+      margin: 0;
+      width: 100%;
+      bottom: -41px;
+      li {
+        margin: 0 auto;
+        &:last-child {
+          margin-left: auto;
+          color: #45bcad;
+        }
+        &:first-child {
+          margin-right: auto;
+          color: #d32f2f;
+        }
+        .ratio {
+          font-size: 18px;
+          font-weight: 600;
+        }
+        strong {
+          display: block;
+          font-size: 18px;
+          font-weight: 400;
+        }
+      }
+    }
+  }
+  .text {
+    margin-top: 50px;
+    text-align: justify;
+  }
+  .legend {
+    display: block;
+    text-align: center;
+  
+    ul {
+      padding: 0;
+      margin: 0;
+      margin-top: 15px;
+      display: inline-block;
+      text-align: left;
+  
+      li {
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+  
+        span {
+          display: inline-block;
+          margin: 0 5px;
+        }
+  
+        .color {
+          width: 15px;
+          height: 15px;
+          border-radius: 5px;
+        }
+  
+        &.hidden-chart {
+          span {
+            text-decoration: line-through;
+          }
+        }
+      }
+    }
+  }
+  .custom-pie {
+    ::ng-deep {
+      >div {
+        margin: 0 auto;
+      }
+    }
+  }
+  

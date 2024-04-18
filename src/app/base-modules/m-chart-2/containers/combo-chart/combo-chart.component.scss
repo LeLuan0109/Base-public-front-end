@@ -1,0 +1,65 @@
+::ng-deep {
+  .report-chart .p-card-title {
+    color: #52347f;
+  }
+
+  .table-data-row {
+    border-bottom: 1px solid #eee;
+  }
+
+  .table-data {
+    border-collapse: collapse;
+  }
+
+  .table-data td {
+    padding: 10px 20px;
+    border-right: 1px solid #ccc;
+  }
+
+  .btn-chart-download .p-button {
+    background-color: transparent !important;
+    color: #52347f !important;
+    border: none !important;
+
+  }
+
+  p-chart canvas {
+    background-color: #fff;
+  }
+
+  .chart-title {
+    display: none;
+    color: #52347f;
+    padding-left: 5px;
+  }
+
+  .show-all {
+    width: 500px;
+    padding-left: 15px;
+    padding-right: 15px;
+
+    .p-tabview-nav-content {
+      display: none;
+    }
+
+    .chart-title {
+      display: block;
+    }
+
+    .p-tabview-panel {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+  }
+}
+
+.view-full {
+  .top-chart {
+    margin-top: 0;
+  }
+}
+
+.top-chart {
+  margin-top: -20px;
+}

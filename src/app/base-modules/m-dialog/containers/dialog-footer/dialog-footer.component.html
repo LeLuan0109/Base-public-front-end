@@ -1,0 +1,12 @@
+<div class="p-05 p-text-right flex justify-content-end px-4">
+  <p-button type="button" [label]="saveLabel" styleClass="p-button-primary" (onClick)="onSave.next(false)" class="mr-1"
+    [disabled]="disabledSave" *ngIf="isOnSave">
+  </p-button>
+  <p-button type="button" [label]="saveContinueLabel" styleClass="p-button-primary"
+    (onClick)="onSaveContinue.next(true)" class="mr-1" [disabled]="disabledSave" *ngIf="isOnSaveContinue">
+  </p-button>
+  <p-button type="button" [label]="cancelLabel" styleClass="p-button-secondary" (onClick)="onClose.next($event)"
+    *ngIf="isOnClose">
+  </p-button>
+  <ng-content></ng-content>
+</div>

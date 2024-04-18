@@ -1,0 +1,164 @@
+/* You can add global styles to this file, and also import other style files */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap");
+@import "assets/bootstrap-icons/bootstrap-icons.scss";
+@import "assets/scss/common-style.scss";
+@import "assets/scss/custom-style.scss";
+
+:root {
+  --orange: #FF900E;
+  --blue: #317FFF;
+  --green: #26BF94;
+  --red: #FF5A5A;
+  --neutral: #827669; 
+
+  --main-content-padding-top: 77px; // padding top of main content container
+
+  --button-color: #D5B9FF; // text color of specific button
+  --button-border-color: #EEE; // border color of specific button
+  --button-color-active: #FFFFFF; // text color of specific button when it's currently active
+  --button-background: #845ADF; // background color of specific button like sidebar, or other special button
+  --button-background-active: #916BE2; // background color of specific button when it's currently active
+  --button-background-hover: #764ecd; // background color of specific button when it's hovered
+  --background-white: #FFFFFF; // background color of white-background element like button, card, ...
+  --background-white-active: #F0F1F7; // background color of white-background element when it's currently active
+  
+  --title-color: #30224D; // commonly used for title of section like card, page, ...
+  --text-color: #655B7B; // text color
+  --subtext-color: #A3A3A3; // text color of subtext like description, disabled button, ...
+
+  --shadow-color: #827696; //shadow color
+  --border-color: #B59CEC; // border color
+
+  --inner-progress-bar-background: #B59CEC; //commonly used for inner progress-bar background
+
+  --primary-font-family: "Inter", "Open Sans", sans-serif;
+  --primary-box-shadow: 0 4px 20px #0d36361a; //box-shadow: shadow of any element like div,button,...
+
+  --border-radius-progress-bar: 4px; //border-radius: commonly used for progress bar
+  --border-radius-input: 8px; //commonly used for input element like option, search, text box, tags...
+  --border-radius-block: 16px; //commonly used for p-card, box, p-overlayPanel
+
+  --default-text-size: 12px; //font-size: the default size of text, apply for common size
+  --small-text-size: 11px; //commonly used for comment, tooltips,...
+  --default-title-size: 14px; //font-size: the default size of title, commonly used for <h1>,<h2>,<strong>,...
+  --big-title-size: 16px;
+
+  --light-font-weight: 300; //font-weight: the default font weight of text 
+  --normal-font-weight: 400; 
+  --bold-font-weight: 500; 
+
+  --small-icon-height: 12px; //height: length of any icon, have three size: small, medium, big icon
+  --medium-icon-height: 16px; 
+  --big-icon-height: 26px; 
+  --check-box-height: 16px; //height: length of any checkbox like positive, negative, neutral,...
+  --progress-bar-height: 16px; //height: height of progress bar, percent bar,...
+  --button-height: 32px; //height: height of button
+  --input-height: 27px; //height: height of input element like option, search, text box,...
+
+  --short-space-width: 12px; //gap,margin,padding: the distance between two elements
+  --medium-space-width: 16px; 
+  --long-space-width: 25px; 
+}
+
+body {
+  margin: 0;
+  font-family: "Open Sans", sans-serif;
+  color: #495057;
+  font-size: 12px;
+}
+
+ul {
+  list-style: none;
+
+  li {
+    margin: 0;
+    padding: 0;
+  }
+}
+
+a {
+  color: #00458b;
+}
+
+img {
+  max-width: 100%;
+}
+
+/* width */
+
+::-webkit-scrollbar {
+  width: 10px;
+  opacity: 0.7;
+}
+
+/* Track */
+
+::-webkit-scrollbar-track {
+  background: rgba(207, 207, 207, 0.699);
+}
+
+/* Handle */
+
+::-webkit-scrollbar-thumb {
+  background: rgba(98, 98, 99, 0.699);
+}
+
+/* Handle on hover */
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(35, 35, 36, 0.699);
+}
+
+.mt-17 {
+  margin-top: 1.7rem !important;
+}
+
+.mt-12 {
+  margin-top: 1.2rem !important;
+}
+
+.mt-02 {
+  margin-top: 0.2rem !important;
+}
+
+.p-05 {
+  padding: 0.5rem !important;
+}
+
+.float-l {
+  float: left im !important;
+}
+
+.float-r {
+  float: right !important;
+}
+
+.btn-footer {
+  margin-right: 10px;
+}
+
+.status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  span {
+    margin: 0 auto;
+  }
+
+  .active {
+    color: #689f38;
+  }
+
+  .deactive {
+    color: #d32f2f;
+  }
+}
+
+.title {
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+  font-size: 20px;
+  color: #52347f;
+}

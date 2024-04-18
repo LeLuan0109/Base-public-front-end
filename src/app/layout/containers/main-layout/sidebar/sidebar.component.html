@@ -1,0 +1,52 @@
+<div class="sidebar" [@collapseMenu]="!isCollapse && !isMobile">
+  <div class="toggle-button" *ngIf="!isMobile">
+    <a (click)="isCollapse=!isCollapse; onChangeSize.emit(isCollapse)">
+      <i class="pi pi-angle-left" *ngIf="!isCollapse"></i>
+      <i class="pi pi-angle-right" *ngIf="isCollapse"></i>
+    </a>
+  </div>
+  <a class="logo" routerLink="/">
+    <img *ngIf="!isCollapse && !isMobile; else smallLogo" [src]="logo">
+    <ng-template #smallLogo>
+      <img class="logo-small" [src]="logoSmall">
+    </ng-template>
+    <!-- <h2>Social Listening</h2> -->
+  </a>
+  <nav class="nav navBar" [ngClass]="{'short' : isCollapse || isMobile}">
+    <div class="nav-main">
+      <!-- <span class="menu-title"></span> -->
+      <ul class="megamenu">
+        <app-sidebar-menu *ngFor="let item of menu['dashboard']" [item]="item"></app-sidebar-menu>
+      </ul>
+      <!-- <span class="menu-title" *ngIf="menu['main'] && menu['main'].length > 0">Quản lý nghiệp vụ</span> -->
+      <ul class="megamenu">
+        <app-sidebar-menu *ngFor="let item of menu['main']" [item]="item"></app-sidebar-menu>
+      </ul>
+      <!-- <span class="menu-title" *ngIf="menu['report'] && menu['report'].length > 0">Báo cáo thống kê</span> -->
+      <ul class="megamenu">
+        <app-sidebar-menu *ngFor="let item of menu['report']" [item]="item"></app-sidebar-menu>
+      </ul>
+      <ul class="megamenu">
+        <app-sidebar-menu *ngFor="let item of menu['emportReport']" [item]="item"></app-sidebar-menu>
+      </ul>
+      <!-- <span class="menu-title" *ngIf="menu['setting'] && menu['setting'].length > 0">Cài đặt</span> -->
+      <ul class="megamenu">
+        <app-sidebar-menu *ngFor="let item of menu['setting']" [item]="item"></app-sidebar-menu>
+      </ul>
+    </div>
+    <div class="nav-setting">
+      <!-- Theme -->
+      <!-- <ul class="megamenu">
+        <app-sidebar-menu *ngFor="let item of themeMenu[theme]" [item]="item"></app-sidebar-menu>
+      </ul> -->
+      <!-- Bottom menu -->
+      <ul class="megamenu" *ngFor="let item of bottomMenuItem">
+        <app-sidebar-menu [subMenuPosition]="ESubMenuPosition.TOP" [item]="item"></app-sidebar-menu>
+      </ul>
+    </div>
+    <div class="watermark" *ngIf="!isCollapse && !isMobile">
+      <img [src]="logoWatermark">
+    </div>
+  </nav>
+</div>
+<span class="show-sidebar" [@collapseMenu]="!isCollapse && !isMobile"></span>

@@ -1,0 +1,77 @@
+.card-box {
+  display: block;
+  background-color: var(--background-white);
+  border-radius: 15px;
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    padding: 8px 15px;
+
+    h3 {
+      font-size: var(--big-title-size);
+      font-weight: var(--bold-font-weight);
+      color: var(--title-color);
+      margin: 0;
+
+      i {
+        font-size: 11px;
+        color: var(--text-color);
+      }
+    }
+
+    span {
+      margin-left: auto;
+
+      .card-icon {
+        ::ng-deep {
+          .p-button {
+            background-color: transparent;
+            border: 1px solid var(--subtext-color);
+            border-radius: 9px;
+            color: var(--subtext-color);
+            width: 25px;
+            height: 25px;
+
+            .p-button-icon {
+              font-size: 11px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .card-content {
+    display: block;
+    padding: 0 15px 0 15px;
+    height: calc(100% - 42px);
+    position: relative;
+  }
+
+  &.view-full {
+    background-color: var(--background-white);
+    // .card-icon {
+    //   display: none;
+    // }
+  }
+
+  ::ng-deep {
+
+    /* Hiển thị thanh cuộn theo chiều dọc nếu nội dung vượt quá chiều cao tối đa */
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: var(--neutral-black-800-bg, #F0F1F7);
+      border-radius: 10px;
+      margin: 13px 0;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: var(--neutral-black-600-line-2, #DADAE1);
+      border-radius: 10px;
+    }
+  }
+}

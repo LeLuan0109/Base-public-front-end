@@ -1,0 +1,62 @@
+.card-wrapper {
+  ::ng-deep {
+    .card-header {
+      > h3 {
+        > i {
+          display: none; //clear tooltip
+        }
+      }
+    }
+    .card-content {
+      padding-bottom: 15px !important;
+    }
+  }
+  .website-item {
+    display: grid;
+    grid-template-columns: 0.6fr 1fr;
+    & > *{
+      padding: 5px;
+    }
+    .lable {
+      width: 100%;
+      padding-right: 5px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      font-weight: var(--normal-font-weight);
+    }
+  
+    .right-wrapper {
+      width: 100%;
+      .right-content {
+        display: grid;
+        grid-template-columns: 0.8fr 0.2fr;
+        .bar-wrapper {
+          min-width: 30%;
+          height: var(--small-progress-bar-height);
+          margin: 0 10px;
+          overflow: hidden;
+          cursor: pointer;
+          .inner-progress-bar {
+            height: 100%;
+            background-color: var(--button-background);
+            border-radius: 0 var(--border-radius-progress-bar) var(--border-radius-progress-bar) 0;
+            &.top-website-bar {
+              background-color: var(--inner-progress-bar-background);
+            }
+          }
+        }
+      
+        .discuss-number {
+          width: 100%;
+          justify-items: end;
+          text-align: end;
+          color: var(--subtext-color);
+          margin-right: 5px;
+        }
+      }
+    }
+  }
+}
+
+  

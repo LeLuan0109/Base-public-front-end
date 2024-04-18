@@ -1,0 +1,74 @@
+<app-dialog-header>
+    {{title[configType]}}
+</app-dialog-header>
+<app-dialog-content>
+    <form [formGroup]="mutation!" autocomplete="off" role="presentation">
+        <div class="p-fluid pt-0">
+            <div class="grid mt-3">
+                <div class="field col-12 md:col-6">
+                    <span class="p-float-label">
+                        <input id="path" type="text" pInputText formControlName="path" [maxlength]="255">
+                        <label for="path">
+                            Đường dẫn
+                            <span class="p-error">*</span>
+                        </label>
+                    </span>
+                    <span class="p-error" *ngIf="path.errors && (path.dirty || path.touched ) ">
+                        <small *ngIf="path.errors['required'] || path.errors['whitespace']"> Đường dẫn không được để
+                            trống</small>
+                        <small *ngIf="path.errors['maxlength']"> Đường dẫn không được vượt quá 255 ký tự</small>
+                    </span>
+                </div>
+                <div class="field col-12 md:col-6">
+                    <span class="p-float-label">
+                        <input id="fileName" type="text" pInputText formControlName="fileName" [maxlength]="255">
+                        <label for="fileName">
+                            Tên file
+                            <span class="p-error">*</span>
+                        </label>
+                    </span>
+                    <span class="p-error" *ngIf="fileName.errors && (path.dirty || fileName.touched ) ">
+                        <small *ngIf="fileName.errors['required'] || fileName.errors['whitespace']"> Tên file không được
+                            để
+                            trống</small>
+                        <small *ngIf="fileName.errors['maxlength']"> Tên file không được vượt quá 255 ký tự</small>
+                    </span>
+                </div>
+            </div>
+            <div class="grid mt-3">
+                <div class="field col-12 md:col-6">
+                    <span class="p-float-label">
+                        <p-dropdown [options]="timesTypeOpt" formControlName="timesType" placeholder="&nbsp;"
+                            inputId="timesType" (onChange)="onChangeTimesType()" [appendTo]="'body'"></p-dropdown>
+                        <label for="timesType">
+                            Tần suất
+                            <span class="p-error">*</span>
+                        </label>
+                    </span>
+                    <span class="p-error" *ngIf="timesType.errors && (timesType.dirty || timesType.touched ) ">
+                        <small *ngIf="timesType.errors['required']"> Tần suất không được để
+                            trống</small>
+                    </span>
+                </div>
+                <div class="field col-12 md:col-6" *ngIf="timesType.value !== 1">
+                    <span class="p-float-label">
+                        <p-dropdown [options]="backupDateOpt" formControlName="backupDate" placeholder="&nbsp;"
+                            inputId="backupDate" [appendTo]="'body'"></p-dropdown>
+                        <label for="backupDate">
+                            Ngày thực hiện
+                            <span class="p-error">*</span>
+                        </label>
+                    </span>
+                    <span class="p-error" *ngIf="backupDate.errors && (path.dirty || backupDate.touched ) ">
+                        <small *ngIf="backupDate.errors['required']"> Ngày thự hiện không được để
+                            trống</small>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </form>
+</app-dialog-content>
+
+<app-dialog-footer [isOnSaveContinue]="false" (onSave)="onSave()" (onClose)="close()" [disabledSave]="mutation?.invalid"
+    [cancelLabel]="'Huỷ'">
+</app-dialog-footer>

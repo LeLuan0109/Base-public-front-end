@@ -1,0 +1,106 @@
+.table {
+  border-spacing: 0;
+
+  tr {
+    td {
+      padding: 10px 5px;
+      border: none;
+    }
+
+    &.odd {
+      td {
+        background-color: #fff;
+      }
+    }
+
+    &.even {
+      td {
+        background-color: #fafafa;
+      }
+    }
+  }
+
+}
+
+.custom-progress {
+  &.value-out {
+    ::ng-deep {
+      .p-progressbar {
+        .p-progressbar-label {
+          position: absolute;
+          left: calc(100% + 5px);
+          color: #52347f;
+        }
+      }
+    }
+  }
+
+  ::ng-deep {
+    .p-progressbar {
+      height: 1.1rem;
+      background: transparent;
+      border-radius: 0;
+
+      &.p-progressbar-determinate {
+        .p-progressbar-value {
+          overflow: unset;
+        }
+      }
+    }
+  }
+}
+
+::ng-deep {
+  .chart-title {
+    display: none;
+    color: #52347f;
+    padding-left: 5px;
+  }
+
+  .show-all {
+    width: 500px;
+    padding-left: 15px;
+    padding-right: 15px;
+
+    .p-tabview-nav-content {
+      display: none;
+    }
+
+    .chart-title {
+      display: block;
+    }
+
+    .p-tabview-panel {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+  }
+}
+
+span.number-txt {
+  min-width: 47px;
+}
+
+.view-full {
+  .table {
+    tr {
+      th {
+        width: 50% !important;
+        span.number-txt {
+          min-width: 50px;
+        }
+      }
+      td {
+        width: 50% !important;
+        span.number-txt {
+          min-width: 50px;
+        }
+      }
+    }
+  }
+}
+
+.min-height-223 {
+  min-height: 223px;
+}

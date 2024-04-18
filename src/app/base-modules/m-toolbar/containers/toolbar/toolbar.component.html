@@ -1,0 +1,43 @@
+<div class="grid mt-3 mb-1 p-toolbar">
+  <div class="col-12">
+    <div class="tools relative">
+      <span class="text mr-4">
+        <strong>{{label}}</strong>
+        <span> ({{itemCount}} bản ghi)</span>
+      </span>
+      <div class="buttons mr-auto ml-0">
+        <p-button *ngIf="isUpload" pRipple icon="pi pi-cloud-upload" label="Tải lên"
+          styleClass="p-button-rounded p-button-secondary p-button-text p-2" class="mr-2" (onClick)="upload()">
+        </p-button>
+
+        <p-button *ngIf="isExport" icon="pi pi-cloud-download" label="Tải về"
+          styleClass="p-button-rounded p-button-success p-button-text" class="mr-2" (onClick)="export()">
+        </p-button>
+
+      </div>
+      <div class="buttons">
+        <p-button label="{{labelClone}}" icon="{{iconClone}}" *ngIf="selectedItems.length===1 && isClone" pRipple
+          styleClass="p-button-rounded p-button-primary p-button-outlined border-radius" class="primary mr-2"
+          [disabled]="disabledClone" (onClick)="clone()">
+        </p-button>
+        <p-button label="{{lableDelete}}" icon="{{iconDelete}}" *ngIf="selectedItems.length>0 && isDelete"
+          styleClass="p-button-rounded p-button-danger p-button-outlined  border-radius" class="primary mr-2"
+          (onClick)="delete()">
+        </p-button>
+        <p-button [label]="labelAdd" *ngIf="isAdd" icon="pi pi-plus" [disabled]="disabledAdd"
+          styleClass="p-button-rounded p-button-primary border-radius" class="bg-success  mr-2" (onClick)="create()">
+        </p-button>
+        <p-button *ngIf="isApprove" label="{{labelApprove}}" icon="{{iconApprove}}" [disabled]="selectedItems.length<1"
+          styleClass="p-button-rounded p-button-primary border-radius" class="bg-success  mr-2" (onClick)="approve()">
+        </p-button>
+        <ng-content></ng-content>
+      </div>
+      <span *ngIf="selectedItems.length>0"
+        class="absolute mt-5 pt-3 font-italic text-primary-500">{{selectedItems.length}} bản
+        ghi đã
+        được
+        chọn
+      </span>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,71 @@
+<p-card class="report-chart" *ngIf="!isChartonly">
+  <ng-template pTemplate="header">
+    <div class="grid px-2 mx-0 report-card-header">
+      <div class="col-10 flex align-content-center text-left align-items-center">
+        <span class="font-bold uppercase">{{title}}</span>
+      </div>
+      <div class="col-2 align-content-center text-right align-items-center flex flex-row-reverse">
+        <!-- <p-button label="Dữ liệu phân tích" icon="pi pi-database" (click)="dataStatistic()"></p-button>
+        <p-button label="Ghi chú" icon="pi pi-comment" (click)="comment()" class="mx-2"></p-button> -->
+        <a #download download="{{title}}.jpg" class="hidden"><i class="pi pi-save"></i></a>
+        <button type="button" class="b-none bg-none" pButton icon="pi pi-ellipsis-v"
+        (click)="menu.toggle($event)"></button>
+      <p-menu #menu [popup]="true" [model]="items"></p-menu>
+      </div>
+    </div>
+  </ng-template>
+  <div #chartContent class="bg-white relative">
+    <div class="content-box">
+      <h4 class="hidden-title">{{title}}</h4>
+      <p-tabView>
+        <p-tabPanel header="Biểu đồ">
+
+          <div class="grid bg-white min-h-300">
+            <div class="col-12" [ngClass]="{'lg:col-6': isContent}">
+              <p-chart width="100%" height="300px" type="bar" [data]="data" [options]="options" *ngIf="!emptyData()"></p-chart>
+              <div *ngIf="emptyData()" class="empty-data">Không có dữ liệu</div>
+            </div>
+            <div class="col-12 lg:col-6" *ngIf="isContent">
+              <ng-content></ng-content>
+            </div>
+          </div>
+
+        </p-tabPanel>
+        <p-tabPanel header="Bảng dữ liệu">
+          <div class="grid pt-2 min-h-300">
+            <div class="col-12">
+              <table #stackTable class="table w-full table-data" *ngIf="!emptyData()">
+                <thead>
+                  <tr>
+                    <th class="col" align="center">Thời gian</th>
+                    <th align="center" class="text-center col" *ngFor="let column of data?.datasets">
+                      {{column.label}}
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let label of data.labels; let i=index" class="table-data-row">
+                    <td align="center">
+                      {{ label }}
+                    </td>
+
+                    <td align="center" *ngFor="let column of data?.datasets" class="px-2">
+                      {{ column.data[i] | number }}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div *ngIf="emptyData()" class="empty-data">Không có dữ liệu
+          </div>
+        </p-tabPanel>
+      </p-tabView>
+    </div>
+  </div>
+</p-card>
+<ng-template [ngIf]="isChartonly">
+  <!-- <p-button label="Tải biểu đồ" icon="pi pi-download" (click)="save()" class="mx-2 btn-chart-download"></p-button> -->
+  <p-chart #stackChart width="100%" height="300px" type="bar" [data]="data" [options]="options"  *ngIf="!emptyData()"></p-chart>
+  <a #download download="{{title}}.jpg" class="hidden"><i class="pi pi-save"></i></a>
+</ng-template>

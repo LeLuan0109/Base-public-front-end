@@ -1,0 +1,83 @@
+.header {
+    display: block;
+    background-color: #52347f;
+    margin: 0 -1.5rem -17px -1.5rem;
+    line-height: 55px;
+    padding: 0 1.5rem;
+    top: -17px;
+    position: relative;
+
+    h2 {
+        font-size: 1.25rem;
+        color: #fff;
+    }
+
+    .close {
+        position: absolute;
+        display: flex;
+        width: 35px;
+        height: 35px;
+        align-items: center;
+        justify-content: center;
+        right: 15px;
+        top: 50%;
+        transform: translate(0, -50%);
+        cursor: pointer;
+        background: #52347f;
+        border-radius: 50%;
+        border: 1px solid #52347f;
+
+        i {
+            color: #fbc02d;
+        }
+
+        &:hover {
+            border-color: #fbc02d;
+            background-color: #52347f;
+        }
+    }
+}
+
+.note {
+    display: block;
+    position: relative;
+
+    b {
+        position: relative;
+        top: -39px;
+    }
+
+    ul {
+        display: inline-block;
+        text-align: left;
+    }
+}
+
+.file {
+    display: inline-block;
+    position: relative;
+    margin-right: 15px;
+
+    label {
+        border: 1px solid #ced4da;
+        width: 400px;
+        height: 37px;
+        line-height: 37px;
+        text-align: left;
+        padding: 0 115px 0 10px;
+        border-radius: 7px;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+        vertical-align: middle;
+    }
+
+    .choose {
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translate(0, -50%);
+    }
+
+}

@@ -1,0 +1,27 @@
+<span class="flex align-items-center">
+  <p-button icon="{{iconMonitorSocial}}" styleClass="bg-none mr-2" pTooltip="{{labelMonitorSocial}}"
+    tooltipPosition="bottom" (onClick)="onMonitorSocial()" [disabled]="disabledMonitorSocial" *ngIf="isMonitorSocial">
+  </p-button>
+  <p-button icon="{{iconMonitorWeb}}" styleClass="bg-none mr-2" pTooltip="{{labelMonitorWeb}}" tooltipPosition="bottom"
+    (onClick)="onMonitorWeb()" [disabled]="disabledMonitorWeb" *ngIf="isMonitorWeb"></p-button>
+  <p-button icon="{{iconExport}}" styleClass="bg-none mr-2" pTooltip="{{labelExport}}" tooltipPosition="bottom"
+    (onClick)="onExport()" [disabled]="disabledExport" *ngIf="isExport"></p-button>
+  <p-button icon="{{iconView}}" styleClass="bg-none mr-2" pTooltip="{{labelView}}" tooltipPosition="bottom"
+    (onClick)="onView()" [disabled]="disabledView" *ngIf="isView"></p-button>
+  <p-button icon="{{iconNote}}" styleClass="bg-none mr-2" pTooltip="{{labelNote}}" tooltipPosition="bottom"
+    (onClick)="onNote()" [disabled]="disabledNote" *ngIf="isNote"></p-button>
+  <p-button icon="{{iconAdd}}" styleClass="bg-none mr-2" pTooltip="{{labelAdd}}" tooltipPosition="bottom"
+    (onClick)="onAdd()" [disabled]="disabledAdd" *ngIf="isAdd"></p-button>
+  <p-button icon="{{iconClone}}" styleClass="bg-none mr-2" pTooltip="{{labelClone}}" tooltipPosition="bottom"
+    (onClick)="onClone()" [disabled]="disabledClone" *ngIf="isClone"></p-button>
+  <p-button icon="{{iconUpdate}}" styleClass="bg-none mr-2" pTooltip="{{labelUpdate}}" tooltipPosition="bottom"
+    (onClick)="onUpdate()" [disabled]="disabledUpdate" *ngIf="isUpdate"></p-button>
+  <p-button icon="{{iconRole}}" styleClass="bg-none mr-2" pTooltip="{{labelRole}}" tooltipPosition="bottom"
+    (onClick)="onRole()" [disabled]="disabledRole" *ngIf="isRole"></p-button>
+  <p-button icon="{{iconUpdateStatus}}" styleClass="bg-none mr-2" pTooltip="{{labelUpdateStatus}}"
+    tooltipPosition="bottom" (onClick)="onUpdateStatus()" [disabled]="disabledUpdateStatus" *ngIf="isUpdateStatus">
+  </p-button>
+  <p-button icon="{{iconDelete}}" styleClass="bg-none mr-2" pTooltip="{{labelDelete}}" tooltipPosition="bottom"
+    (onClick)="onDelete()" [disabled]="disabledDelete" *ngIf="isDelete"></p-button>
+  <ng-content></ng-content>
+</span>

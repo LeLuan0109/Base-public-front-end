@@ -1,0 +1,43 @@
+<!-- <p-card class="custom-card">
+    <ng-template pTemplate="header">
+        <div class="p-card-body pb-0">
+            <div class="grid">
+                <div class="col-10">
+                    <div class="p-card-title">
+                        {{"Tỉ lệ sắc thái theo chủ đề"}}
+                        <span tooltipStyleClass="custom-tooltip" appendTo="target" tooltipPosition="bottom"
+                            [escape]="false" class="title-icon cursor-pointer"
+                            pTooltip="{{'Tỉ lệ sắc thái theo chủ đề '}}" class="title-icon cursor-pointer">
+                            <i class="pi pi-info-circle"></i>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-2 text-right">
+                    <a #download class="hidden"><i class="pi pi-save"></i></a>
+                    <button type="button" class="full-screen-btn" (click)="toggleFullscreen()">
+                        <i class="pi pi-search-plus"></i>
+                    </button>
+                    <p-menu #menu [popup]="true" [model]="items"></p-menu>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+    <div #chartContent class="bg-white relative">
+        <div class="content-box grid ">
+            <div class="p-card-title hidden-title">{{'Tổng hợp sắc thái theo chủ đề'}}</div>
+            <div class="col-12  content-chart cursor-pointer mt-3">
+                <app-tags-sentiment-level [value]="tagSentiment" [totalMax]="totalMax"></app-tags-sentiment-level>
+            </div>
+        </div>
+    </div>
+</p-card> -->
+
+<m-card [title]="'Tỉ lệ sắc thái theo chủ đề'" styleClass="h-50 min-h-300" class="card-wrapper">
+  <div class="content-box grid overflow-y-auto h-full">
+    <div class="col-12">
+      <div class="content-chart">
+        <app-tags-sentiment-level [value]="tagSentiment" [totalMax]="totalMax"></app-tags-sentiment-level>
+      </div>
+    </div>
+  </div>
+</m-card>

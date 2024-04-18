@@ -1,0 +1,52 @@
+<p-card class="report-chart" *ngIf="!isChartonly">
+  <ng-template pTemplate="header">
+    <div class="grid px-2 mx-0 report-card-header">
+      <div class="col-10 flex align-content-center text-left align-items-center">
+        <span class="font-bold uppercase">{{title}}</span>
+      </div>
+      <div class="col-2 align-content-center text-right align-items-center flex flex-row-reverse">
+        <!-- <p-button label="Dữ liệu phân tích" icon="pi pi-database" (click)="dataStatistic()"></p-button>
+          <p-button label="Ghi chú" icon="pi pi-comment" (click)="comment()" class="mx-2"></p-button> -->
+        <a #download download="{{title}}.jpg" class="hidden"><i class="pi pi-save"></i></a>
+        <button type="button" pButton icon="pi pi-bars" (click)="menu.toggle($event)"></button>
+        <p-menu #menu [popup]="true" [model]="items"></p-menu>
+      </div>
+    </div>
+  </ng-template>
+  <div #chartContent class="bg-white relative">
+    <div class="content-box">
+      <h4 class="hidden-title">{{title}}</h4>
+      <p-tabView>
+        <p-tabPanel header="Biểu đồ">
+
+          <div class="grid bg-white min-h-300">
+            <div class="col-12" [ngClass]="{'lg:col-6': isContent}">
+              <div class="chart-map" id="{{id}}" *ngIf="this.dataTable && this.dataTable.length > 0"></div>
+              <div *ngIf="!this.dataTable || this.dataTable.length < 1" class="empty-data">Không có dữ liệu</div>
+            </div>
+            <div class="col-12 lg:col-6" *ngIf="isContent">
+              <ng-content></ng-content>
+            </div>
+          </div>
+
+        </p-tabPanel>
+        <p-tabPanel header="Bảng dữ liệu">
+          <div class="grid pt-2 min-h-300">
+            <div class="col-12">
+              <ul class="viewData">
+                <li *ngFor="let d of dataTable">
+                  <span>{{d[dataLabel]}}</span>
+                  <span>{{d[dataValue]}}</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div *ngIf="!this.dataTable || this.dataTable.length < 1" class="empty-data">Không có dữ liệu</div>
+        </p-tabPanel>
+      </p-tabView>
+    </div>
+  </div>
+</p-card>
+<ng-template [ngIf]="isChartonly">
+  <div id="container" id="{{id}}"  *ngIf="this.dataTable && this.dataTable.length > 0"></div>
+</ng-template>

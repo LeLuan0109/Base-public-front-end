@@ -1,0 +1,9 @@
+<div class="p-inputgroup" [ngClass]="styleClass">
+    <span class="p-input-icon-right w-full">
+      <i *ngIf="keyword" class="pi pi-times-circle disabled-{{isDisabled}}" (click)="clear()"></i>
+      <input type="text" class="h-full w-full" pInputText placeholder="{{placeholder}}"
+        (changeOnBlur)="search()" (keyup.enter)="search()" (keyup.esc)="clear()" (focus)="onFocus()" [(ngModel)]="keyword" [disabled]="isDisabled"/>
+    </span>
+    <button type="button" pButton pRipple icon="pi pi-search" (click)="search()"
+      class="p-button-primary" [disabled]="isDisabled"></button>
+  </div>

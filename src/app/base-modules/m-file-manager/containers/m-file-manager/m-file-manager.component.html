@@ -1,0 +1,22 @@
+<div class="file-header">
+  <p-button label="Chọn ảnh" icon="pi pi-plus" styleClass="custom-button green" [disabled]="isDisabled || disabled"
+    (onClick)="addFile()"></p-button>
+  <p-button label="Xóa hết" icon="pi pi-times" styleClass="custom-button red" [disabled]="isDisabled || disabled"
+    (onClick)="clearFile()"></p-button>
+</div>
+<div class="file-content">
+  <ul class="lstFile" *ngIf="fileType === 'image' else file">
+    <li *ngFor="let item of filesValue; let i = index">
+      <img src="{{item}}" (click)="viewImage(i)">
+      <span class="pi pi-times remove" (click)="removeFile(i)"></span>
+    </li>
+  </ul>
+  <ng-template #file>
+    <ul class="lstFile">
+      <li *ngFor="let item of filesValue; let i = index">
+        <a href="{{item}}" target="_blank" (click)="viewImage(i)"><i class="pi pi-file"></i></a>
+        <span class="pi pi-times remove" (click)="removeFile(i)"></span>
+      </li>
+    </ul>
+  </ng-template>
+</div>

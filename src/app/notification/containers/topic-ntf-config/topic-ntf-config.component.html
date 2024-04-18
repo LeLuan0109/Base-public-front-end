@@ -1,0 +1,102 @@
+<p-toolbar [delegateKeys]="delegateKeys" [selectedItems]="selectedItems" [itemCount]="totalElement" [isAdd]="false"
+  [isClone]="false" [isApprove]="false" [isDelete]="false" [labelApprove]="'Duyệt cảnh báo'"
+  [iconApprove]="'bi bi-chat-quote'">
+</p-toolbar>
+<div class="grid">
+  <div class="col-12">
+    <p-table [lazy]="true" (onLazyLoad)="lazyLoad($event)" [(selection)]="selectedItems" [value]="topicNtfs"
+      [alwaysShowPaginator]="false" [showLoader]="true" class="data-table" [rows]="10" [paginator]="true"
+      (onPage)="scrollToTop()" [totalRecords]="totalElement" styleClass="datatable-responsive" [first]="first">
+      <ng-template pTemplate="header">
+        <tr>
+          <th width="70px" class="text-center">
+            <!-- <p-tableHeaderCheckbox></p-tableHeaderCheckbox> -->
+            STT
+          </th>
+          <th>
+            Tên chuyên đề
+          </th>
+          <!-- <th width="160px">
+            Loại cảnh báo
+          </th> -->
+          <th>
+            Cảnh báo
+          </th>
+          <th>Trạng thái</th>
+          <th width="200px">Thao tác</th>
+        </tr>
+        <tr>
+          <td></td>
+          <td>
+            <p-columnFilter type="text" field="name" placeholder="Tên chuyên đề" matchMode="contains"
+              [showClearButton]="true" [showMenu]="false">
+            </p-columnFilter>
+          </td>
+          <td>
+            <p-columnFilter type="text" field="ntfName" placeholder="Tên cảnh báo" matchMode="contains"
+              [showClearButton]="true" [showMenu]="false">
+            </p-columnFilter>
+          </td>
+          <td>
+            <p-columnFilter field="ntfStatus" matchMode="in" [showMenu]="false" [showClearButton]="false">
+              <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                <p-dropdown [ngModel]="value" [options]="statusOpt" (onChange)="filter($event.value)"
+                  placeholder="Chọn trạng thái" [showClear]="true">
+                </p-dropdown>
+              </ng-template>
+            </p-columnFilter>
+          </td>
+          <td></td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-item let-i="rowIndex">
+        <tr>
+          <td width="70px" class="text-center">
+            <!-- <p-tableCheckbox [value]="item"></p-tableCheckbox> -->
+            {{i+1}}
+          </td>
+          <td>
+            <span class="p-column-title">Tên chủ đề</span>{{ item.name }}
+          </td>
+          <!-- <td width="180px">
+            <span class="p-column-title">Loại cảnh báo</span>
+            <span *ngFor="let ntf of item.notificationConfigs" class="block">
+              <span class="block text-primary-600"
+                *ngIf="ntf.timesType === timeType.hour.value">{{timeType.hour.label}}</span>
+              <span class="block text-yellow-600"
+                *ngIf="ntf.timesType === timeType.day.value">{{timeType.day.label}}</span>
+              <span class="block text-green-600"
+                *ngIf="ntf.timesType === timeType.week.value">{{timeType.week.label}}</span>
+            </span>
+          </td> -->
+          <td>
+            <span class="p-column-title"> Cảnh báo</span>
+            {{item.ntfRemoved ? '' : item.ntfName}}
+          </td>
+          <td>
+            <span class="p-column-title"> Trạng thái</span>
+            <span *ngIf="item.ntfRemoved === false" class="status-{{item.ntfStatus}}">
+              {{item.ntfStatus === 1? 'Đã duyệt': 'Chưa duyệt'}}
+            </span>
+          </td>
+          <td width="200px">
+            <span class="p-column-title">Thao tác</span>
+            <m-tooltable *ngIf="item.ntfRemoved === false" [delegateKeys]="delegateKeys" [isDelete]="false"
+              [isView]="false" [isUpdateStatus]="true" [isUpdate]="false" (onClick)="toolTableClick($event, item)"
+              [labelUpdateStatus]="item.ntfStatus === 1 ? 'Đã duyệt cảnh báo' : 'Duyệt cảnh báo'" [disabledUpdateStatus]="item.ntfStatus === 1">
+            </m-tooltable>
+            <i *ngIf="item.ntfRemoved === null || item.ntfRemoved === undefined || item.ntfRemoved" 
+              class="pi pi-check-circle ml-1 opacity-60" pTooltip="Cần thêm mới cấu hình tùy chỉnh cảnh báo" tooltipPosition="top"></i>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td style="background-color: #fafafb" [attr.colspan]="7" class="text-center">
+            Không tìm thấy kết quả
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>

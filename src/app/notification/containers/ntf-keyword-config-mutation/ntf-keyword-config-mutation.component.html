@@ -1,0 +1,173 @@
+<app-dialog-header>
+	{{title}}
+</app-dialog-header>
+<app-dialog-content>
+	<form [formGroup]="mutationForm!" autocomplete="off" role="presentation" *ngIf="isLoad">
+		<div class="p-fluid pt-0" [ngClass]="{'p-disabled p-view view' : action === 'view'}">
+			<div class="grid mt-3">
+				<div class="field col-12 md:col-6">
+					<span class="p-float-label">
+						<input id="name" type="text" pInputText formControlName="name">
+						<label for="name">
+							Tên cảnh báo
+							<span class="p-error">*</span>
+						</label>
+					</span>
+					<span class="p-error" *ngIf="name.errors && (name.dirty || name.touched ) ">
+						<small *ngIf="name.errors['required'] || name.errors['whitespace']">Tên cảnh báo không được để
+							trống</small>
+					</span>
+				</div>
+				<div class="field col-12 md:col-6">
+					<span class="p-float-label">
+						<p-dropdown formControlName="timesType" [options]="timesTypeOpt" inputId="timesType"
+							[appendTo]="'body'" placeholder="&nbsp;" [showClear]="true">
+						</p-dropdown>
+						<label for="timesType">
+							Tần suất nhận
+							<span class="p-error">*</span>
+						</label>
+					</span>
+					<span class="p-error" *ngIf="timesType.errors && (timesType.dirty || timesType.touched ) ">
+						<small *ngIf="timesType.errors['required']">Tần suất nhận không được để trống</small>
+					</span>
+				</div>
+			</div>
+			<div class="grid mt-3">
+				<div class="field col-12 md:col-6">
+					<span class="p-float-label">
+						<m-lazyDropdown formControlName="" [options]="topicOpt"
+							(onLazyLoad)="filterTopic($event)" [valueInitLabel]="topicName"></m-lazyDropdown>
+						<label for="">
+							Chuyên đề
+							<span class="p-error">*</span>
+						</label>
+					</span>
+					<!-- <span class="p-error" *ngIf="topicId.errors && (topicId.dirty || topicId.touched ) ">
+						<small *ngIf="topicId.errors['required']">Chuyên đề không được để trống</small>
+					</span> -->
+				</div>
+				<div class="field col-12 md:col-6">
+					<span class="p-float-label">
+						<p-chips [addOnBlur]="true" formControlName="keyword"
+							pTooltip="Enter để nhận thông tin sau khi nhập dữ liệu" tooltipPosition="bottom"></p-chips>
+						<label for="keyword">
+							Từ khoá
+						</label>
+					</span>
+					<span class="p-error" *ngIf="keyword.errors && (keyword.dirty || keyword.touched ) ">
+						<small *ngIf="keyword.errors['duplicate']">Từ khoá không được nhập trùng lặp</small>
+					</span>
+				</div>
+			</div>
+			<div class="grid mt-3">
+				<div class="field col-12 md:col-6 relative">
+					<label class="custom-label">Nguồn</label>
+					<p-checkbox [binary]="true" label="Facebook" formControlName="facebook" class="mr-3"></p-checkbox>
+					<p-checkbox [binary]="true" label="Tiktok" formControlName="tiktok" class="mr-3"></p-checkbox>
+					<p-checkbox [binary]="true" label="YouTube" formControlName="youTube" class="mr-3"></p-checkbox>
+					<p-checkbox [binary]="true" label="Website" formControlName="website"></p-checkbox>
+				</div>
+				<div class="field col-12 md:col-6 relative">
+					<label class="custom-label">Sắc thái</label>
+					<p-checkbox [binary]="true" label="Tích cực" formControlName="positive" class="mr-3"></p-checkbox>
+					<p-checkbox [binary]="true" label="Tiêu cực" formControlName="negative" class="mr-3"></p-checkbox>
+					<p-checkbox [binary]="true" label="Trung tính" formControlName="neutral"></p-checkbox>
+				</div>
+			</div>
+			<div class="grid mt-3">
+				<div class="field md:col-6 relative">
+					<label class="custom-label">Kênh nhận</label>
+					<p-checkbox class="mr-4 mt-4" label="Cảnh báo qua notification" [binary]="true"
+						formControlName="ntfApp"></p-checkbox>
+					<p-checkbox class="mr-4 mt-4" label="Cảnh báo qua email" [binary]="true"
+						formControlName="email"></p-checkbox>
+					<p-checkbox class="mr-4 mt-4" label="Cảnh báo qua telegram" [binary]="true"
+						formControlName="telegram"></p-checkbox>
+				</div>
+				<div class="field md:col-6" [formGroup]="userInputForm!">
+					<div *ngIf="email.value">
+						<span class="p-float-label relative">
+							<p-dropdown [options]="emailOpt" editable="true" placeholder="&nbsp;" [showClear]="true"
+								[appendTo]="'body'" formControlName="emailInput" (changeOnBlur)="onSelectEmail($event)"
+								(onChange)="onSelectEmail($event)">
+							</p-dropdown>
+							<label>Email</label>
+							<span class="p-error" *ngIf="emailInput.errors?.['pattern']">
+								<small>Email không đúng định dạng</small>
+							</span>
+						</span>
+						<div class="mt-2">
+							<ng-container *ngFor="let item of emails.controls; let i = index">
+								<p-chip styleClass="mb-2" label="{{ item.value }}" [removable]="true"
+									(onRemove)="onRemoveEmail(i)"></p-chip>
+								<span>, </span>
+							</ng-container>
+						</div>
+					</div>
+					<div class="mt-6" *ngIf="telegram.value">
+						<span class="p-float-label relative">
+							<p-dropdown [options]="telegramOpt" editable="true" placeholder="&nbsp;" [showClear]="true"
+								[appendTo]="'body'" formControlName="telegramInput"
+								(changeOnBlur)="onSelectTelegram($event)" (onChange)="onSelectTelegram($event)">
+							</p-dropdown>
+							<label>Telegram channel</label>
+							<span class="p-error" *ngIf="telegramInput.errors?.['pattern']">
+								<small>Telegram channel không đúng định dạng</small>
+							</span>
+						</span>
+						<div class="mt-2">
+							<ng-container *ngFor="let item of channelTelegram.controls; let i = index">
+								<p-chip styleClass="mb-2" label="{{ item.value }}" [removable]="true"
+									(onRemove)="onRemoveTelegram(i)"></p-chip>
+								<span>, </span>
+							</ng-container>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="grid mt-3" formArrayName="sources">
+				<div class="col-12">
+					<label class="block mb-2">Nguồn dữ liệu đính danh</label>
+					<div class="block surface-100 relative pl-3 pr-3 pt-4 border-round-lg shadow-1 mt-3"
+						*ngFor="let source of sources.controls; index as i;">
+						<div class="grid" [formGroupName]="i">
+							<div class="field col-12 md:col-4">
+								<span class="p-float-label">
+									<p-dropdown formControlName="type" [options]="sourceOpt" [appendTo]="'body'"
+										placeholder="&nbsp;" (onChange)="changeType(source)"></p-dropdown>
+									<label for="">
+										Loại nguồn
+									</label>
+								</span>
+							</div>
+							<div class="field col">
+								<span class="p-float-label">
+									<m-lazyDropdown formControlName="profileId" [options]="profileOpt"
+										(onLazyLoad)="filterProfile($event, source)"
+										(onSelect)="onSelectProfile($event, i)"></m-lazyDropdown>
+									<label for="">
+										Nguồn
+									</label>
+								</span>
+							</div>
+							<div class="col-fixed" *ngIf="action !== 'view'">
+								<p-button styleClass="border-circle bg-gray-600 border-none shadow-inset-6"
+									icon="pi pi-trash" (onClick)="sourceRemove(i)"></p-button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="field col-fixed" *ngIf="action !== 'view'">
+					<p-button icon="pi pi-plus" class="btn-add-main" styleClass="custom-button p-button-primary"
+						label="Thêm nguồn" (onClick)="addNewSource()"></p-button>
+				</div>
+			</div>
+		</div>
+	</form>
+</app-dialog-content>
+
+<app-dialog-footer [isOnSave]="action !== 'view'" [isOnSaveContinue]="action === 'insert'" (onSave)="save()"
+	(onSaveContinue)="save(false)" (onClose)="close()" [disabledSave]="mutationForm?.invalid"
+	[cancelLabel]="action === 'view' ? 'Đóng' : 'Huỷ'">
+</app-dialog-footer>

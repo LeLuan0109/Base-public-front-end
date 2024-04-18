@@ -1,0 +1,39 @@
+.file-wapper {
+  display: block;
+  padding: 1px;
+  position: relative;
+
+  .previous,
+  .next {
+    display: none;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.466);
+    width: 50px;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+
+    i {
+      color: #fff;
+      font-size: 34px;
+    }
+  }
+
+  &:hover {
+
+    .previous,
+    .next {
+      display: flex;
+    }
+  }
+
+  .previous {
+    left: 0;
+  }
+
+  .next {
+    right: 0;
+  }
+}

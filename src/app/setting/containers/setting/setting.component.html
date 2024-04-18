@@ -1,0 +1,73 @@
+<div class="settings">
+  <div class="grid">
+    <div class="col-12">
+      <h1 class="title">Cài đặt tài khoản</h1>
+    </div>
+  </div>
+  <div class="grid">
+    <div class="col-12">
+      <!-- <strong class="avatar-title">Ảnh đại diện</strong> -->
+      <div class="avatar">
+        <p-avatar icon="pi pi-user" styleClass="avatar-icon" shape="circle">
+        </p-avatar>
+        <!-- <img src="assets/images/avatar.jpg" /> -->
+        <!-- <button pButton label="Update" class="green"></button>
+        <button pButton label="Remove"></button> -->
+      </div>
+    </div>
+  </div>
+  <form [formGroup]="settingForm!" [autocomplete]="'off'">
+    <ul class="p-fluid formgrid grid">
+      <li class="col-12">
+        <div class="grid">
+          <div class="field col-12 md:col-6 pl:col-3">
+            <span class="label">
+              <label for="fullName">Họ và tên</label>
+              <span>Bạn muốn được gọi như thế nào?</span>
+            </span>
+            <input id="fullName" type="text" formControlName="fullName" pInputText (changeOnBlur)="isChange=true"/>
+            <span class="p-error" *ngIf="fullName.errors && (fullName.dirty || fullName.touched)">
+              <small *ngIf="fullName.errors['required'] || fullName.errors['whitespace']">Họ và tên không được để trống</small>
+            </span>
+          </div>
+        </div>
+      </li>
+
+      <li class="col-12">
+        <div class="grid">
+          <div class="field col-12 md:col-6 pl:col-3">
+            <span class="label">
+              <label for="email">Địa chỉ Email</label>
+              <span>Để nhận thông báo</span>
+            </span>
+            <input id="email" type="text" formControlName="email" pInputText (changeOnBlur)="isChange=true"/>
+            <span class="p-error" *ngIf="email.errors && (email.dirty || email.touched)">
+              <small *ngIf="email.errors['required']">Email không được để trống</small>
+              <small *ngIf="email.errors['maxlength']">Email không đúng định dạng</small>
+              <small *ngIf="email.errors['pattern']">Email không đúng định dạng</small>
+            </span>
+          </div>
+          <div class="field col-12 md:col-6 pl:col-3">
+            <span class="label">
+              <label for="phone">Số điện thoại</label>
+              <span>Để nhận thông báo quan trọng</span>
+            </span>
+            <input id="phone" type="text" formControlName="phone" pInputText (changeOnBlur)="isChange=true" />
+            <span class="p-error" *ngIf="phone.errors && (phone.dirty || phone.touched)
+              ">
+              <small *ngIf="phone.errors['required']">Số điện thoại không được để trống</small>
+              <small *ngIf="phone.errors['maxlength']">Số điện thoại không đúng định dạng</small>
+              <small *ngIf="phone.errors['pattern']">Số điện thoại không đúng định dạng</small>
+            </span>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </form>
+  <div class="grid">
+    <div class="col-12 text-right">
+      <button pButton label="Lưu thay đổi" class="save blue" [disabled]="settingForm!.invalid || !isChange"
+        (click)="save()" ></button>
+    </div>
+  </div>
+</div>

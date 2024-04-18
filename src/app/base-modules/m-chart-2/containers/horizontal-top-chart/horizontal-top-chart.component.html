@@ -1,0 +1,80 @@
+<p-card class="custom-card">
+  <ng-template pTemplate="header">
+    <div class="p-card-body pb-0">
+      <div class="grid">
+        <div class="col-10">
+          <div class="p-card-title">{{title}}</div>
+        </div>
+        <div class="col-2 text-right">
+          <a #download download="{{title}}.jpg" class="hidden"><i class="pi pi-save"></i></a>
+          <button type="button" class="b-none bg-none" pButton icon="pi pi-ellipsis-v"
+            (click)="menu.toggle($event)"></button>
+          <p-menu #menu [popup]="true" [model]="items"></p-menu>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+
+  <div #chartContent class="bg-white relative">
+    <div class="content-box min-height-223">
+      <div class="p-card-title hidden-title">{{title}}</div>
+      <p-tabView class="custom-tabview" *ngIf="isTab">
+        <p-tabPanel *ngFor="let item of value" [header]="item.title">
+          <h4 class="chart-title">{{item.title}}</h4>
+          <div class="grid bg-white">
+            <div class="col-12">
+              <table class="w-full table" *ngIf="!emptyData(item.data)">
+                <tr class="cursor-pointer" *ngFor="let label of item.data.labels; let i=index;"
+                  [ngClass]="i%2==0 ? 'even':'odd'" (click)="openLink(item.data, i)">
+                  <td>{{label}}</td>
+                  <td width="170px">
+                    <div class="flex align-items-left">
+                      <!-- <span class="number-txt text-right pr-1">{{item.data?.datasets[0]?.data[i] | numberView}}</span> -->
+                      <span class="flex-1">
+                        <p-progressBar class="custom-progress"
+                          [ngClass]="item.data?.datasets[0]?.data[i] / totalData(item.data?.datasets[0]?.data) > 0.5 ? 'value-in' : 'value-out'"
+                          [value]="(item.data?.datasets[0]?.data[i] / totalData(item.data?.datasets[0]?.data)) * 100 | number: '1.0-2'"></p-progressBar>
+                      </span>
+                    </div>
+                  </td>
+                </tr>
+              </table>
+              <div *ngIf="emptyData(item.data)" class="empty-data">
+                Không có dữ liệu
+              </div>
+            </div>
+            <div class="col-12 lg:col-6">
+              <ng-content></ng-content>
+            </div>
+          </div>
+        </p-tabPanel>
+      </p-tabView>
+
+      <div class="grid bg-white hzt-data-box" *ngIf="!isTab && value && value.length > 0">
+        <div class="col-12">
+          <table class="w-full table" *ngIf="!emptyData(value[0].data)">
+            <tr *ngFor="let label of value[0].data.labels; let i=index;" [ngClass]="i%2==0 ? 'even':'odd'">
+              <td>{{label}}</td>
+              <td width="150px">
+                <div class="flex align-items-center">
+                  <!-- <span class="w-4 text-right pr-1">{{value[0].data?.datasets[0]?.data[i] | numberView}}</span> -->
+                  <span class="w-8">
+                    <p-progressBar class="custom-progress"
+                      [ngClass]="value[0].data?.datasets[0]?.data[i] / totalData(value[0].data?.datasets[0]?.data) > 0.5 ? 'value-in' : 'value-out'"
+                      [value]="(value[0].data?.datasets[0]?.data[i] / totalData(value[0].data?.datasets[0]?.data)) * 100 | number: '1.0-2'"></p-progressBar>
+                  </span>
+                </div>
+              </td>
+            </tr>
+          </table>
+          <div *ngIf="emptyData(value[0].data)" class="empty-data">
+            Không có dữ liệu
+          </div>
+        </div>
+        <div class="col-12 lg:col-6">
+          <ng-content></ng-content>
+        </div>
+      </div>
+    </div>
+  </div>
+</p-card>

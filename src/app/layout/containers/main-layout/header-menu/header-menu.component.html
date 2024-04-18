@@ -1,0 +1,39 @@
+<ul class="megamenu">
+	<li *ngFor="let item of items; let i = index" routerLinkActive="active-link"
+		[routerLinkActiveOptions]="{ exact: true }" (click)="item.visible = !item.visible" class="nab-header-{{i}}">
+		<ng-template [ngIf]="item.items">
+			<a *ngIf="item.routerLink" [routerLink]="item.routerLink">
+				<span class="icon {{item.icon}}" *ngIf="item.icon"></span>
+				<span class="text">{{item.label}}</span>
+				<span class="icon-down pi pi-angle-down"></span>
+			</a>
+			<a *ngIf="!item.routerLink">
+				<span class="icon {{item.icon}}" *ngIf="item.icon"></span>
+				<span class="text">{{item.label}}</span>
+				<span class="icon-down pi pi-angle-down"></span>
+			</a>
+			<ul class="submenu" [@collapse]="item.visible">
+				<li *ngFor="let sub of item.items" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">
+					<a *ngIf="sub.routerLink" [routerLink]="sub.routerLink">
+						<span class="icon {{sub.icon}}" *ngIf="sub.icon"></span>
+						<span class="text">{{sub.label}}</span>
+					</a>
+					<a *ngIf="!sub.routerLink">
+						<span class="icon {{sub.icon}}" *ngIf="sub.icon"></span>
+						<span class="text">{{sub.label}}</span>
+					</a>
+				</li>
+			</ul>
+		</ng-template>
+		<ng-template [ngIf]="!item.items">
+			<a *ngIf="item.routerLink" [routerLink]="item.routerLink">
+				<span class="icon {{item.icon}}" *ngIf="item.icon"></span>
+				<span class="text">{{item.label}}</span>
+			</a>
+			<a *ngIf="!item.routerLink">
+				<span class="icon {{item.icon}}" *ngIf="item.icon"></span>
+				<span class="text">{{item.label}}</span>
+			</a>
+		</ng-template>
+	</li>
+</ul>

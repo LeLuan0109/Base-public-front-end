@@ -1,0 +1,203 @@
+<div class="wrapper" *ngIf="!isRegisted else registerSuccess">
+    <div class="left">
+        <h1 class="text-center">Social Listening</h1>
+    </div>
+    <div class="right">
+        <div class="grid">
+            <div class="col-12 text-center mb-2">
+                <h3 class="text-center">Đăng ký tài khoản</h3>
+            </div>
+        </div>
+        <p-steps [model]="items" [readonly]="true" [activeIndex]="index"></p-steps>
+        <div class="regiter-form pt-5">
+            <form [formGroup]="regiterForm!" [autocomplete]="'off'">
+                <ng-container [ngSwitch]="index">
+                    <ng-container *ngSwitchCase="0">
+                        <div class="grid mt-3">
+                            <div class="col-12">
+                                <span class="p-float-label">
+                                    <input id="fullName" type="text" pInputText formControlName="fullName"
+                                        class="inputfield ui-state-filled w-full login-input" />
+                                    <label for="fullName">
+                                        Họ và tên
+                                        <span class="p-error">*</span>
+                                    </label>
+                                </span>
+                                <span class="p-error" *ngIf="fullName.errors && (fullName.dirty || fullName.touched)">
+                                    <small *ngIf="fullName.errors['required'] || fullName.errors['whitespace']">
+                                        Họ và tên không được để trống
+                                    </small>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="grid mt-3">
+                            <div class="col-12">
+                                <span class="p-float-label">
+                                    <input id="email" type="text" pInputText formControlName="email"
+                                        class="inputfield ui-state-filled w-full login-input" />
+                                    <label for="email">
+                                        Email
+                                        <span class="p-error">*</span>
+                                    </label>
+                                </span>
+                                <span class="p-error" *ngIf="email.errors && (email.dirty || email.touched)">
+                                    <small *ngIf="email.errors['required']">
+                                        Email không được để trống
+                                    </small>
+                                    <small *ngIf="email.errors['pattern']">
+                                        Email không đúng định dạng
+                                    </small>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="grid mt-3">
+                            <div class="col-12">
+                                <span class="p-float-label">
+                                    <input id="phone" type="text" pInputText formControlName="phone"
+                                        class="inputfield ui-state-filled w-full login-input" />
+                                    <label for="phone">
+                                        Số điện thoại
+                                        <span class="p-error">*</span>
+                                    </label>
+                                </span>
+                                <span class="p-error" *ngIf="phone.errors && (phone.dirty || phone.touched)">
+                                    <small *ngIf="phone.errors['required']">
+                                        Số điện thoại không được để trống
+                                    </small>
+                                    <small *ngIf="email.errors['pattern']">
+                                        Số điện thoại không đúng định dạng
+                                    </small>
+                                </span>
+                            </div>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="1">
+                        <div class="grid mt-3">
+                            <div class="col-12">
+                                <span class="p-float-label">
+                                    <input id="companyName" type="text" pInputText formControlName="companyName"
+                                        class="inputfield ui-state-filled w-full login-input" />
+                                    <label for="companyName">
+                                        Tên công ty
+                                        <span class="p-error">*</span>
+                                    </label>
+                                </span>
+                                <span class="p-error"
+                                    *ngIf="companyName.errors && (companyName.dirty || companyName.touched)">
+                                    <small *ngIf="companyName.errors['required'] || companyName.errors['whitespace']">
+                                        Tên công ty không được để trống
+                                    </small>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="grid mt-3">
+                            <div class="col-12">
+                                <span class="p-float-label">
+                                    <input id="address" type="text" pInputText formControlName="address"
+                                        class="inputfield ui-state-filled w-full login-input" />
+                                    <label for="address">
+                                        Địa chỉ
+                                        <span class="p-error">*</span>
+                                    </label>
+                                </span>
+                                <span class="p-error" *ngIf="address.errors && (address.dirty || address.touched)">
+                                    <small *ngIf="address.errors['required'] || address.errors['whitespace']">
+                                        Địa chỉ không được để trống
+                                    </small>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="grid mt-3">
+                            <div class="col-12">
+                                <span class="p-float-label">
+                                    <input id="website" type="text" pInputText formControlName="website"
+                                        class="inputfield ui-state-filled w-full login-input" />
+                                    <label for="website">
+                                        Website
+                                    </label>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="grid mt-3">
+                            <div class="col-12">
+                                <span class="p-float-label">
+                                    <input id="texCode" type="text" pInputText formControlName="texCode"
+                                        class="inputfield ui-state-filled w-full login-input" />
+                                    <label for="texCode">
+                                        texCode
+                                    </label>
+                                </span>
+                            </div>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="2">
+                        <div class="grid mt-3">
+                            <div class="col-12">
+                                <span class="p-float-label">
+                                    <p-password
+                                        styleClass="inputfield w-full fix-style-pass p-password-mask login-input p-inputwrapper p-input-icon-right"
+                                        formControlName="password" [toggleMask]="true" (keyup.enter)="login()"
+                                        promptLabel="Nhập mật khẩu" weakLabel="Mật khẩu yếu"
+                                        inputStyleClass="w-full p-password-input" mediumLabel="Mật khẩu trung bình"
+                                        strongLabel="Mật khẩu mạnh"> </p-password>
+                                    <label for="password">
+                                        Mật khẩu
+                                        <span class="p-error">*</span>
+                                    </label>
+                                </span>
+                                <span class="p-error" *ngIf="password.errors && (password.dirty || password.touched ) ">
+                                    <small *ngIf="password.errors['required']" class="block">Mật khẩu không được để
+                                        trống</small>
+                                    <small *ngIf="password.errors['minlength']" class="block">Mật khẩu phải từ 6 ký tự
+                                        trở lên</small>
+                                    <small *ngIf="password.errors['maxlength']" class="block">Mật khẩu phải nhỏ hơn 64
+                                        ký tự</small>
+                                    <small *ngIf="password.errors['pattern']" class="block">Mật khẩu không được bắt đầu
+                                        hoặc kết thúc bằng khoảng trống</small>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="grid mt-3">
+                            <div class="col-12">
+                                <span class="p-float-label">
+                                    <p-password
+                                        styleClass="inputfield w-full fix-style-pass p-password-mask login-input p-inputwrapper p-input-icon-right"
+                                        formControlName="passwordConfirmation" [toggleMask]="true"
+                                        (keyup.enter)="login()" promptLabel="Nhập mật khẩu" weakLabel="Mật khẩu yếu"
+                                        inputStyleClass="w-full p-password-input" mediumLabel="Mật khẩu trung bình"
+                                        strongLabel="Mật khẩu mạnh"> </p-password>
+                                    <label for="passwordConfirmation">
+                                        Nhập lại mật khẩu
+                                        <span class="p-error">*</span>
+                                    </label>
+                                </span>
+                                <span class="p-error"
+                                    *ngIf="passwordConfirmation.errors && (passwordConfirmation.dirty || passwordConfirmation.touched ) ">
+                                    <small
+                                        *ngIf="passwordConfirmation.errors['required'] || passwordConfirmation.errors['mustMatch']">Nhập
+                                        lại
+                                        mật khẩu không khớp</small>
+                                </span>
+                            </div>
+                        </div>
+                    </ng-container>
+                </ng-container>
+                <div class="grid mt-5">
+                    <div class="col-6">
+                        <p-button (onClick)="index=index-1" label="Quay lại" [disabled]="index === 0"></p-button>
+                    </div>
+                    <div class="col-6 text-right">
+                        <p-button (onClick)="regiter()" [label]="index === 2 ? 'Đăng ký' :'Tiếp tục'"
+                            [disabled]="disabledButton()"></p-button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div #registerSuccess class="text-center">
+    <p>Hệ thống đã gửi xác minh cho bạn qua email <b>{{email.value}}</b>. Bạn vui lòng kiểm tra email và để kích
+        hoạt tài khoản. Nếu không thấy email bạn có thể xem trong thư mục "Thư rác"</p>
+    <a routerLink="/auth/login">Đăng nhập</a>
+</div>

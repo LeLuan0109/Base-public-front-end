@@ -1,0 +1,339 @@
+<!-- <p-toolbar [delegateKeys]="delegateKeys" [itemCount]="totalElement" [isAdd]="false" [isDelete]="false" [isClone]="false"
+  (onClick)="toolBarClick($event)">
+</p-toolbar>
+<div class="grid mt-2">
+  <div class="col-12">
+    <p-tabView [(activeIndex)]="tabIndex" (onChange)="changeTabView()">
+      <p-tabPanel header="Cảnh báo chung">
+        <ng-template [ngIf]="tabIndex === 0">
+          <p-table [lazy]="true" (onLazyLoad)="lazyLoadNtf($event)" [(selection)]="selectedItems" [value]="ntfs"
+            [alwaysShowPaginator]="false" [showLoader]="true" class="data-table" [rows]="10" [paginator]="true"
+            (onPage)="scrollToTop()" [rowsPerPageOptions]="[10, 25, 50]" [totalRecords]="totalElement"
+            styleClass="datatable-responsive" [(first)]="first">
+            <ng-template pTemplate="header">
+              <tr>
+                <th width="80" class="text-left"> STT
+                </th>
+                <th pSortableColumn="send_time">Ngày gửi
+                  <p-sortIcon [field]="'send_time'"></p-sortIcon>
+                </th>
+                <th width="160" pSortableColumn="times_type">
+                  Loại cảnh báo
+                  <p-sortIcon [field]="'times_type'"></p-sortIcon>
+                </th>
+                <th pSortableColumn="topic_name.keyword">Chuyên đề
+                  <p-sortIcon [field]="'topic_name.keyword'"></p-sortIcon>
+                </th>
+                <th pSortableColumn="posts">Lượng tin bài
+                  <p-sortIcon [field]="'posts'"></p-sortIcon>
+                </th>
+                <th width="185" pSortableColumn="interact">Lượng tương tác
+                  <p-sortIcon [field]="'interact'"></p-sortIcon>
+                </th>
+                <th pSortableColumn="negative">Lượng tiêu cực
+                  <p-sortIcon [field]="'negative'"></p-sortIcon>
+                </th>
+                <th width="95">Thao tác
+                </th>
+              </tr>
+              <tr>
+                <th colspan="2">
+                  <p-columnFilter type="text" field="sendTime" matchMode="in" [showMenu]="false"
+                    [showClearButton]="false">
+                    <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                      <p-calendar [dateFormat]="'dd/mm/yy'" [ngModel]="value" [appendTo]="'body'"
+                        [monthNavigator]="true" [yearNavigator]="true" [readonlyInput]="true" (onClear)="filter()"
+                        showButtonBar="true" (onSelect)="filter($event)" [showIcon]="true" [maxDate]="maxDate"
+                        placeholder="Ngày gửi" [showClear]="true">
+                      </p-calendar>
+                    </ng-template>
+                  </p-columnFilter>
+                </th>
+                <th width="160">
+                  <p-columnFilter field="timesType" matchMode="in" [showMenu]="false" [showClearButton]="false">
+                    <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                      <p-dropdown [ngModel]="value" [options]="timeTypeOpt" (onChange)="filter($event.value)"
+                        placeholder="Chọn loại cảnh báo" [showClear]="true">
+                      </p-dropdown>
+                    </ng-template>
+                  </p-columnFilter>
+                </th>
+                <th>
+                  <p-columnFilter type="text" field="topicName" matchMode="in" [showMenu]="false"
+                    placeholder="Chuyên đề">
+                  </p-columnFilter>
+                </th>
+                <th>
+                  <p-columnFilter type="text" field="posts" matchMode="in" [showMenu]="false">
+                    <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                      <p-inputNumber inputId="integeronly" [ngModel]="value" (onInput)="filter($event.value)"
+                        placeholder="Lượng tin bài"></p-inputNumber>
+                    </ng-template>
+                  </p-columnFilter>
+                </th>
+                <th width="185">
+                  <p-columnFilter type="text" field="interact" matchMode="in" [showMenu]="false">
+                    <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                      <p-inputNumber inputId="integeronly" [ngModel]="value" (onInput)="filter($event.value)"
+                        placeholder="Lượng tương tác"></p-inputNumber>
+                    </ng-template>
+                  </p-columnFilter>
+                </th>
+                <th colspan="2">
+                  <p-columnFilter type="text" field="negative" matchMode="in" [showMenu]="false">
+                    <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                      <p-inputNumber inputId="integeronly" [ngModel]="value" (onInput)="filter($event.value)"
+                        placeholder="Lượng tiêu cực"></p-inputNumber>
+                    </ng-template>
+                  </p-columnFilter>
+                </th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item let-i="rowIndex">
+              <tr>
+                <td width="80" class="text-left">
+                  {{ i + 1 }}
+                </td>
+                <td>
+                  <span class="p-column-title">Ngày gửi</span>{{item.sendTime * 1000| date: 'dd/MM/yyyy HH:mm'}}
+                </td>
+                <td width="160">
+                  <span class="p-column-title">Loại cảnh báo</span>
+                  <span *ngIf="item.timesType === timeType.hour.value">{{timeType.hour.label}}</span>
+                  <span *ngIf="item.timesType === timeType.day.value">{{timeType.day.label}}</span>
+                  <span *ngIf="item.timesType === timeType.week.value">{{timeType.week.label}}</span>
+                </td>
+                <td>
+                  <span class="p-column-title">Chuyên đề</span>
+                  {{item.topicName}}
+                </td>
+                <td>
+                  <span class="p-column-title">Lượng tin bài</span>
+                  {{item.posts | numberView}}
+                </td>
+                <td width="185">
+                  <span class="p-column-title">Lượng tương tác</span>
+                  {{item.interact | numberView}}
+                </td>
+                <td>
+                  <span class="p-column-title">Lượng tiêu cực</span>
+                  {{item.negative | numberView}}
+                </td>
+                <td width="95">
+                  <span class="p-column-title">Thao tác</span>
+                  <m-tooltable [delegateKeys]="delegateKeys" [isUpdate]="false" [isDelete]="false"
+                    (onClick)="toolTableClick($event, item)"></m-tooltable>
+                </td>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+              <tr>
+                <td style="background-color:#fafafb" [attr.colspan]="8" class="text-center">
+                  Không tìm thấy kết quả
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </ng-template>
+      </p-tabPanel>
+      <p-tabPanel header="Cảnh báo theo từ khóa">
+        <ng-template [ngIf]="tabIndex === 1">
+          <p-table [lazy]="true" (onLazyLoad)="lazyLoadNtf($event)" [(selection)]="selectedItems" [value]="ntfs"
+            [alwaysShowPaginator]="false" [showLoader]="true" class="data-table" [rows]="10" [paginator]="true"
+            [rowsPerPageOptions]="[10, 25, 50]" [totalRecords]="totalElement" styleClass="datatable-responsive"
+            [(first)]="first">
+            <ng-template pTemplate="header">
+              <tr>
+                <th width="80" class="text-left"> STT
+                </th>
+                <th pSortableColumn="send_time">Ngày gửi
+                  <p-sortIcon [field]="'send_time'"></p-sortIcon>
+                </th>
+                <th pSortableColumn="title.keyword">
+                  Tên cảnh báo
+                  <p-sortIcon [field]="'title.keyword'"></p-sortIcon>
+                </th>
+                <th pSortableColumn="times_type">
+                  Tần suất nhận
+                  <p-sortIcon [field]="'times_type'"></p-sortIcon>
+                </th>
+                <th width="250px" pSortableColumn="topic_name.keyword">
+                  Chuyên đề
+                  <p-sortIcon [field]="'topic_name.keyword'"> </p-sortIcon>
+                </th>
+                <th width="100px">Thao tác
+                </th>
+              </tr>
+              <tr>
+                <th colspan="2">
+                  <p-columnFilter type="text" field="sendTime" matchMode="in" [showMenu]="false"
+                    [showClearButton]="false">
+                    <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                      <p-calendar [dateFormat]="'dd/mm/yy'" [ngModel]="value" [appendTo]="'body'"
+                        [monthNavigator]="true" [yearNavigator]="true" [readonlyInput]="true" (onClear)="filter()"
+                        showButtonBar="true" (onSelect)="filter($event)" [showIcon]="true" [maxDate]="maxDate"
+                        placeholder="Ngày gửi" [showClear]="true">
+                      </p-calendar>
+                    </ng-template>
+                  </p-columnFilter>
+                </th>
+                <th>
+                  <p-columnFilter type="text" field="title" matchMode="in" [showMenu]="false"
+                    placeholder="Tên cảnh báo"></p-columnFilter>
+                </th>
+                <th>
+                  <p-columnFilter field="timesType" matchMode="in" [showMenu]="false" [showClearButton]="false">
+                    <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                      <p-dropdown [ngModel]="value" [options]="frequncyOpt" (onChange)="filter($event.value)"
+                        placeholder="Chọn tần suất nhận" [showClear]="true">
+                      </p-dropdown>
+                    </ng-template>
+                  </p-columnFilter>
+                </th>
+                <th>
+                  <p-columnFilter type="text" field="topicName" matchMode="in" [showMenu]="false"
+                    placeholder="Chuyên đề"></p-columnFilter>
+                </th>
+                <th>
+                </th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item let-i="rowIndex">
+              <tr>
+                <td width="80" class="text-left">
+                  {{ i + 1 }}
+                </td>
+                <td>
+                  <span class="p-column-title">Ngày gửi</span>{{item.sendTime * 1000| date: 'dd/MM/yyyy HH:mm'}}
+                </td>
+                <td>
+                  <span class="p-column-title">Tên cảnh báo</span>
+                  {{item.title}}
+                </td>
+                <td>
+                  <span class="p-column-title">Tần suất nhận</span>
+                  <span *ngFor="let f of frequncyOpt">
+                    {{f.value === item.timesType ? f.label : ''}}
+                  </span>
+                </td>
+                <td>
+                  <span class="p-column-title">Chuyên đề</span>
+                  {{item.topicName}}
+                </td>
+                <td width="100px">
+                  <span class="p-column-title">Thao tác</span>
+                  <m-tooltable [delegateKeys]="delegateKeys" [isUpdate]="false" [isDelete]="false"
+                    (onClick)="toolTableClick($event, item)"></m-tooltable>
+                </td>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+              <tr>
+                <td style="background-color:#fafafb" [attr.colspan]="6" class="text-center">
+                  Không tìm thấy kết quả
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </ng-template>
+      </p-tabPanel>
+    </p-tabView>
+  </div>
+</div> -->
+
+<p-table [lazy]="true" (onLazyLoad)="lazyLoadNtf($event)" [value]="ntfs" [alwaysShowPaginator]="false"
+  [showLoader]="true" class="data-table" [rows]="10" [paginator]="true" [rowsPerPageOptions]="[10, 25, 50]"
+  [totalRecords]="totalElement" styleClass="datatable-responsive" [(first)]="first">
+  <ng-template pTemplate="header">
+    <tr>
+      <th width="80" class="text-left"> STT
+      </th>
+      <th pSortableColumn="send_time">Ngày gửi
+        <p-sortIcon [field]="'send_time'"></p-sortIcon>
+      </th>
+      <th pSortableColumn="title.keyword">
+        Tên cảnh báo
+        <p-sortIcon [field]="'title.keyword'"></p-sortIcon>
+      </th>
+      <th pSortableColumn="times_type">
+        Tần suất nhận
+        <p-sortIcon [field]="'times_type'"></p-sortIcon>
+      </th>
+      <th width="250px" pSortableColumn="topic_name.keyword">
+        Chuyên đề
+        <p-sortIcon [field]="'topic_name.keyword'"> </p-sortIcon>
+      </th>
+      <th width="100px">Thao tác
+      </th>
+    </tr>
+    <tr>
+      <td></td>
+      <td>
+        <p-columnFilter type="text" field="sendTime" matchMode="in" [showMenu]="false" [showClearButton]="false">
+          <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+            <p-calendar [dateFormat]="'dd/mm/yy'" [ngModel]="value" [appendTo]="'body'" [monthNavigator]="true"
+              [yearNavigator]="true" [readonlyInput]="true" (onClear)="filter()" showButtonBar="true"
+              (onSelect)="filter($event)" [showIcon]="true" [maxDate]="maxDate" placeholder="Ngày gửi"
+              [showClear]="true">
+            </p-calendar>
+          </ng-template>
+        </p-columnFilter>
+      </td>
+      <td>
+        <p-columnFilter type="text" field="title" matchMode="in" [showMenu]="false"
+          placeholder="Tên cảnh báo"></p-columnFilter>
+      </td>
+      <td>
+        <p-columnFilter field="timesType" matchMode="in" [showMenu]="false" [showClearButton]="false">
+          <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+            <p-dropdown [ngModel]="value" [options]="frequncyOpt" (onChange)="filter($event.value)"
+              placeholder="Chọn tần suất nhận" [showClear]="true">
+            </p-dropdown>
+          </ng-template>
+        </p-columnFilter>
+      </td>
+      <td>
+        <p-columnFilter type="text" field="topicName" matchMode="in" [showMenu]="false"
+          placeholder="Chuyên đề"></p-columnFilter>
+      </td>
+      <td>
+      </td>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-item let-i="rowIndex">
+    <tr>
+      <td width="80" class="text-left">
+        {{ i + 1 }}
+      </td>
+      <td>
+        <span class="p-column-title">Ngày gửi</span>{{item.sendTime * 1000| date: 'dd/MM/yyyy HH:mm'}}
+      </td>
+      <td>
+        <span class="p-column-title">Tên cảnh báo</span>
+        {{item.title}}
+      </td>
+      <td>
+        <span class="p-column-title">Tần suất nhận</span>
+        <span *ngFor="let f of frequncyOpt">
+          {{f.value === item.timesType ? f.label : ''}}
+        </span>
+      </td>
+      <td>
+        <span class="p-column-title">Chuyên đề</span>
+        {{item.topicName}}
+      </td>
+      <td width="100px">
+        <span class="p-column-title">Thao tác</span>
+        <m-tooltable [delegateKeys]="delegateKeys" [isUpdate]="false" [isDelete]="false"
+          (onClick)="toolTableClick($event, item)"></m-tooltable>
+      </td>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="emptymessage">
+    <tr>
+      <td style="background-color:#fafafb" [attr.colspan]="6" class="text-center">
+        Không tìm thấy kết quả
+      </td>
+    </tr>
+  </ng-template>
+</p-table>

@@ -1,0 +1,98 @@
+<div class="wrapper">
+  <div id="background" class="login-bg"></div>
+  <div class="main-container">
+    <div class="login-box">
+      <div class="grid">
+        <div class="col-12">
+          <img class="logo" src="/assets/images/logo-login.png">
+        </div>
+      </div>
+      <div class="grid">
+        <div class="col-12">
+          <form class="login-form" [formGroup]="loginForm!" [autocomplete]="'off'">
+            <div class="grid">
+              <div class="col-12">
+                <h2 class="m-0 login-title">ABP Dashboard xin chào Bạn,</h2>
+                <p>Vui lòng đăng nhập để bắt đầu sử dụng dịch vụ</p>
+              </div>
+            </div>
+            <div class="grid">
+              <div class="col-12">
+                <label class="label" for="username">
+                  Tên đăng nhập
+                </label>
+                <input id="username" type="text" pInputText formControlName="username" (keyup.enter)="login()"
+                  class="inputfield ui-state-filled w-full login-input" placeholder="Email" />
+                <span class="p-error" *ngIf="username.errors && (username.dirty || username.touched)">
+                  <small *ngIf="username.errors['required']">
+                    Tên đăng nhập không được để trống
+                  </small>
+                </span>
+              </div>
+            </div>
+            <div class="grid mt-1">
+              <div class="col-12">
+                <label class="label" for="password">
+                  Mật khẩu
+                </label>
+                <p-password
+                  styleClass="inputfield w-full fix-style-pass p-password-mask login-input p-inputwrapper p-input-icon-right"
+                  formControlName="password" [toggleMask]="true" (keyup.enter)="login()" promptLabel="Nhập mật khẩu"
+                  weakLabel="Mật khẩu yếu" inputStyleClass="w-full p-password-input" mediumLabel="Mật khẩu trung bình"
+                  strongLabel="Mật khẩu mạnh" placeholder="Mật khẩu"> </p-password>
+                <span class="p-error" *ngIf="password.errors && (password.dirty || password.touched)">
+                  <small *ngIf="password.errors['required']">
+                    Mật khẩu không được để trống
+                  </small>
+                </span>
+              </div>
+            </div>
+            <div class="grid">
+              <div class="col-12 text-right">
+                Quên mật khẩu?
+                <a class="link" routerLink="/auth/forgot-password">Lấy lại mật khẩu</a>
+              </div>
+            </div>
+            <div class="grid mt-3">
+              <div class="col-12">
+                <button pButton type="button" label="Đăng nhập" class="w-full btn-login"
+                  [disabled]="loginForm!.invalid || checkLogin" (click)="login()"></button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="footer">
+  <div class="container">
+    <div class="grid">
+      <div class="col-12 md:col-6 info">
+        <h3 class="mt-3 mb-2">Liên hệ</h3>
+        <a href="tel:+971813721">0971 813 721</a>
+        <span class="block">Email: <a href="mailto: contact@apb.vn">contact@apb.vn</a></span>
+        <p class="mt-2">Địa chỉ: Số 8, ngõ 21 Lê Văn Lương, Nhân Chính, Thanh Xuân, Hà Nội</p>
+      </div>
+      <div class="col-12 md:col-6">
+        <ul class="line-text mt-3">
+          <li><strong>Điều khoản sử dụng</strong></li>
+        </ul>
+        <ul class="line-text mt-2">
+          <li><img src="/assets/images/icons/facebook.png"></li>
+          <li><img src="/assets/images/icons/in.png"></li>
+          <li><img src="/assets/images/icons/youtube.png"></li>
+          <li><img src="/assets/images/icons/zalo.png"></li>
+        </ul>
+        <ul class="line-text mt-2">
+          <li>
+            <p class="compyright">Bản quyền thuộc Công ty Cổ phần Truyền thông và Công Nghệ ABP</p>
+          </li>
+          <!-- <li>
+            <p class="compyright">Website: ABP.com.vn</p>
+          </li> -->
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

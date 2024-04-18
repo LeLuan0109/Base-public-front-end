@@ -1,0 +1,68 @@
+<p-card class="custom-card">
+  <ng-template pTemplate="header">
+    <div class="p-card-body pb-0">
+      <div class="grid">
+        <div class="col-10">
+          <div class="p-card-title">{{title}}</div>
+        </div>
+        <div class="col-2 text-right">
+          <a #download download="{{title}}.jpg" class="hidden"><i class="pi pi-save"></i></a>
+          <button type="button" class="b-none bg-none" pButton icon="pi pi-ellipsis-v"
+            (click)="menu.toggle($event)"></button>
+          <p-menu #menu [popup]="true" [model]="items"></p-menu>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+  <div #chartContent class="bg-white relative">
+    <div class="content-box">
+      <div class="p-card-title hidden-title">{{title}}</div>
+      <p-tabView class="custom-tabview">
+        <p-tabPanel *ngFor="let item of value" [header]="item.title">
+          <h4 class="chart-title">{{item.title}}</h4>
+          <div class="grid bg-white" (click)="openLink(item)">
+            <div class="col-12">
+              <p-chart width="100%" height="400px" type="bar" [data]="item.data"
+                [options]="horizontalOptions" *ngIf="!emptyData(item.data)"></p-chart>
+              <div *ngIf="emptyData(item)" class="empty-data">
+                Không có dữ liệu
+              </div>
+            </div>
+            <div class="col-12 lg:col-6">
+              <ng-content></ng-content>
+            </div>
+          </div>
+        </p-tabPanel>
+        <p-tabPanel header="Bảng dữ liệu" *ngIf="value && value.length > 0">
+          <h4 class="chart-title">Bảng dữ liệu</h4>
+          <div id="grid" class="pt-2">
+            <div class="col-12">
+              <table #horizonTable class="table w-full table-data" *ngIf="!emptyData(tableData)">
+                <thead>
+                  <tr>
+                    <th class="text-left  col">{{label}}</th>
+                    <th class="text-left  col" *ngFor="let column of tableData?.datasets">
+                      {{column.label}}
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of tableData?.labels; let i=index" class="table-data-row">
+                    <td> {{ item }}</td>
+
+                    <td *ngFor="let column of tableData?.datasets" class="px-2">
+                      {{ column.data[i] | number }}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div *ngIf="emptyData(tableData)" class="empty-data">
+            Không có dữ liệu
+          </div>
+        </p-tabPanel>
+      </p-tabView>
+    </div>
+  </div>
+</p-card>

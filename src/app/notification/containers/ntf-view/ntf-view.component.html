@@ -1,0 +1,76 @@
+<app-dialog-header>
+    Chi tiết thông tin cảnh báo qua
+    <span style="font-size: 1.25rem;"
+        *ngIf="ntfInfo.sendType === sendType.ntf.value">{{sendType.ntf.label.toLowerCase()}}</span>
+    <span style="font-size: 1.25rem;"
+        *ngIf="ntfInfo.sendType === sendType.email.value">{{sendType.email.label.toLowerCase()}}</span>
+</app-dialog-header>
+<app-dialog-content>
+    <div class="grid mt-3" *ngIf="ntfInfo.ntfType === 'GENERAL' else keyword">
+        <div class="col-12 md:col-6">
+            <strong class="block">Ngày gửi</strong>
+            {{ntfInfo.sendTime! * 1000 | date: 'dd/MM/yyyy HH:mm'}}
+        </div>
+        <div class="col-12 md:col-6">
+            <strong class="block">Loại thời gian</strong>
+            <span *ngIf="ntfInfo.timesType === timeType.hour.value">{{timeType.hour.label}}</span>
+            <span *ngIf="ntfInfo.timesType === timeType.day.value">{{timeType.day.label}}</span>
+            <span *ngIf="ntfInfo.timesType === timeType.week.value">{{timeType.week.label}}</span>
+        </div>
+        <div class="col-12 md:col-6">
+            <strong class="block">Chuyên đề</strong>
+            {{ntfInfo.topicName}}
+        </div>
+        <div class="col-12 md:col-6">
+            <strong class="block">Tiêu đề</strong>
+            {{ntfInfo.title}}
+        </div>
+        <div class="col-12 md:col-12 text-center">
+            <strong class="block text-left">Nội dung</strong>
+            <div class="inline-block text-left" [ngClass]="{'text-indent-9999' : ntfInfo.sendType === 2}"
+                [innerHtml]="ntfInfo.message"></div>
+        </div>
+        <!-- <div class="col-12 md:col-6">
+            <strong class="block">Lượng tin bài</strong>
+            {{ntfInfo.posts | numberView}}
+        </div>
+        <div class="col-12 md:col-6">
+            <strong class="block">Lượng tương tác</strong>
+            {{ntfInfo.interact | numberView}}
+        </div>
+        <div class="col-12 md:col-6">
+            <strong class="block">Lương tiêu cực</strong>
+            {{ntfInfo.negative | numberView}}
+        </div> -->
+    </div>
+    <ng-template #keyword>
+        <div class="grid mt-3">
+            <div class="col-12 md:col-6">
+                <strong class="block">Ngày gửi</strong>
+                {{ntfInfo.sendTime! * 1000 | date: 'dd/MM/yyyy HH:mm'}}
+            </div>
+            <div class="col-12 md:col-6">
+                <strong class="block">Tần suất nhận</strong>
+                <span *ngFor="let f of frequncyOpt">
+                    {{f.value === ntfInfo.timesType ? f.label : ''}}
+                </span>
+            </div>
+            <div class="col-12 md:col-6">
+                <strong class="block">Tên cảnh báo</strong>
+                {{ntfInfo.title}}
+            </div>
+            <div class="col-12 md:col-6">
+                <strong class="block">Chuyên đề</strong>
+                {{ntfInfo.topicName}}
+            </div>
+            <div class="col-12 md:col-12">
+                <strong class="block text-left">Nội dung</strong>
+                <div class="inline-block text-left" [ngClass]="{'text-indent-9999' : ntfInfo.sendType === 2}"
+                    [innerHtml]="ntfInfo.message"></div>
+            </div>
+        </div>
+    </ng-template>
+
+</app-dialog-content>
+<app-dialog-footer [isOnSave]="false" [isOnSaveContinue]="false" cancelLabel="Đóng" (onClose)="close()">
+</app-dialog-footer>

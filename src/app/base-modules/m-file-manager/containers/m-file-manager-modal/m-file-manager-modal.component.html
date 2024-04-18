@@ -1,0 +1,84 @@
+<div class="file-wapper">
+  <div class="grid">
+    <div class="col-fixed folder-sidebar">
+      <h2 class="folder-title">Thư mục <span class="pi pi-plus add-folder" pTooltip="Thêm thư mục"
+          (click)="addFolder()"></span></h2>
+      <ul class="folder">
+        <li *ngFor="let item of folders" [ngClass]="{'active': folderSelect === item}" (click)="selectFolder(item)">
+          {{item}}</li>
+      </ul>
+    </div>
+    <div class="col">
+
+      <m-file-upload (onUploadFile)="uploadFile($event)" [fileType]="fileType" [foldersOpt]="folders"
+        [folder]="folderSelect"></m-file-upload>
+
+      <div class="grid mt-3">
+        <div class="col-12">
+          <div class="content-data">
+            <div class="data-header">
+              <div class="search">
+                <input pInputText [(ngModel)]="name" placeholder="Tìm kiếm theo tên..." (changeOnBlur)="search()" />
+                <p-button icon="pi pi-search" (onClick)="search()"></p-button>
+              </div>
+            </div>
+            <ul class="lst-data" id="fileData">
+              <li *ngFor="let item of files; let i= index">
+                <p-checkbox inputId="file_{{i}}" name="fileGroup" [(ngModel)]="selectFiles" [value]="item.id"
+                  (onChange)="selectItem(item)" class="checkbox"></p-checkbox>
+                <label class="file" for="file_{{i}}">
+                  <div class="image-container">
+                    <img src="{{fileRoot}}{{item.id}}" [alt]="item.name" class="image" />
+                  </div>
+                  <div class="file-name">
+                    <h5>{{item.name}}</h5>
+                  </div>
+                </label>
+                <span class="delete-file" (click)="deleteFile(item)">
+                  <i class="pi pi-trash"></i>
+                </span>
+              </li>
+            </ul>
+            <div class="data-footer">
+              <p-button icon="pi pi-check-circle" label="Chọn" styleClass="custom-button green" class="mr-2"
+                [disabled]="selectFiles.length < 1" (onClick)="checkFile()"></p-button>
+              <p-button icon="pi pi-times" label="Hủy" styleClass="custom-button red" (onClick)="close()"></p-button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="folder-box" *ngIf="isShowFolder">
+  <div class="folder-content">
+    <h3 class="folder-title">Thêm mới thư mục</h3>
+    <span class="close pi pi-times" (click)="cancelAddFolder()"></span>
+    <div class="folder-name">
+      <input pInputText [(ngModel)]="folderName" placeholder="Nhập tên thư mục" class="w-full">
+    </div>
+    <div class="folder-footer">
+      <p-button icon="pi pi-plus" label="Tạo" styleClass="custom-button green" [disabled]="!folderName"
+        (onClick)="creatFolder()" class="mr-2"></p-button>
+      <p-button icon="pi pi-times" label="Hủy" styleClass="custom-button red" (onClick)="cancelAddFolder()"></p-button>
+    </div>
+  </div>
+</div>
+<div class="folder-box" *ngIf="isShowDelete">
+  <div class="folder-content">
+    <h3 class="folder-title">Bạn thự sự muốn xóa ảnh?</h3>
+    <span class="close pi pi-times" (click)="cancelDeleteFile()"></span>
+    <div class="folder-name">
+      <span class="mesager">
+        <i class="pi pi-exclamation-triangle"></i>
+        Khi bạn xóa {{fileType === 'image' ? 'ảnh' : 'tệp tin'}} thì nó được xóa khỏi hệ thống, không thể lấy lại!
+      </span>
+    </div>
+    <div class="folder-footer">
+      <p-button icon="pi pi-upload" label="Xóa" styleClass="custom-button red" [disabled]="!fileDelete"
+        (onClick)="confirmDeleteFile()" class="mr-2"></p-button>
+      <p-button icon="pi pi-times" label="Hủy" styleClass="custom-button gray"
+        (onClick)="cancelDeleteFile()"></p-button>
+    </div>
+  </div>
+</div>

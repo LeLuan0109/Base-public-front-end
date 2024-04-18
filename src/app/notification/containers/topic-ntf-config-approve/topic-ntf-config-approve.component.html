@@ -1,0 +1,146 @@
+<app-dialog-header>
+    Duyệt chuyên đề thuộc diện cảnh báo
+</app-dialog-header>
+<app-dialog-content>
+    <!-- <div class="p-fluid pt-0" *ngIf="action !== 'view' else view">
+        <div class="grid mt-3">
+            <div class="col-5">
+                <strong>Chuyên đề</strong>
+            </div>
+            <div class="col-7 text-left">
+                <strong>Duyệt cảnh báo</strong>
+            </div>
+        </div>
+        <div class="grid mt-1" *ngFor="let item of topicNtfs">
+            <div class="col-5">
+                {{item.name}}
+            </div>
+            <div class="col-7 text-left">
+                <p-checkbox *ngFor="let time of timesTypeOpt" label="{{time.label}}" value="{{time.value}}"
+                    [(ngModel)]="item.timesTypes" class="mb-2 block" name="ntf"></p-checkbox>
+                <span *ngIf="item.ntfKeywordConfig && !item.ntfKeywordConfig.removed">
+                    <p-checkbox label="{{item.ntfKeywordConfig.name}}"
+                        [(ngModel)]="item.ntfStatus" class="mb-2 block" name="ntfKeyword" [binary]="true"></p-checkbox>
+                </span>
+            </div>
+        </div>
+    </div>
+    <ng-template #view> -->
+    <div class="grid mt-3 mb-1">
+        <div class="col-12 text-center">
+            Chuyên đề
+            <strong class="block text-center"> {{topicNtf.name}}</strong>
+        </div>
+    </div>
+    <!-- <h3>Cảnh báo chung</h3>
+        <p-table [value]="ntfConfigs">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Loại cảnh báo</th>
+                    <th>Tiêu đề</th>
+                    <th>Lượng tin bài</th>
+                    <th>Lượng tương tác</th>
+                    <th>Lượng tiêu cực</th>
+                    <th>Phương thức gửi</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item>
+                <tr>
+                    <td>
+                        <span *ngIf="item.timesType === timesTypeConst.hour.value">{{timesTypeConst.hour.label}}</span>
+                        <span *ngIf="item.timesType === timesTypeConst.day.value">{{timesTypeConst.day.label}}</span>
+                        <span *ngIf="item.timesType === timesTypeConst.week.value">{{timesTypeConst.week.label}}</span>
+                    </td>
+                    <td>
+                        {{item.title}}
+                    </td>
+                    <td>
+                        {{item.posts | numberView}}
+                    </td>
+                    <td>
+                        {{item.interact | numberView}}
+                    </td>
+                    <td>
+                        {{item.negative | numberView}}
+                    </td>
+                    <td>
+                        <span class="block text-blue-600">Cảnh báo qua email</span>
+                        <span class="block text-yellow-600">Cảnh báo qua notification</span>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table> -->
+    <ng-template [ngIf]="ntfKeywordConfig">
+        <div class="flex align-items-center mb-2">
+            <strong class="mr-2">Duyệt cấu hình thông báo: </strong>
+            <p-inputSwitch class="custom-switch" [(ngModel)]="approveNtf"></p-inputSwitch>
+        </div>
+        <div class="grid">
+            <div class="col-12 md:col-2">
+                <strong class="block">Tên thông báo</strong>
+            </div>
+            <div class="col-12 md:col-10">
+                {{ntfKeywordConfig.name}}
+            </div>
+            <div class="col-12 md:col-2">
+                <strong class="block">Tần suất nhận</strong>
+            </div>
+            <div class="col-12 md:col-10">
+                <span *ngFor="let fr of frequencyOpt">
+                    {{fr.value === ntfKeywordConfig.timesType ? fr.label : ''}}
+                </span>
+            </div>
+            <div class="col-12 md:col-2">
+                <strong class="block">Kênh nhận</strong>
+            </div>
+            <div class="col-12 md:col-10">
+                <span *ngIf="ntfKeywordConfig.email" class="mr-3 text-indigo-700">Cảnh báo qua email</span>
+                <span *ngIf="ntfKeywordConfig.ntfApp" class="text-cyan-700">Cảnh báo qua notification</span>
+            </div>
+            <div class="col-12 md:col-2">
+                <strong class="block">Nguồn</strong>
+            </div>
+            <div class="col-12 md:col-10">
+                <span *ngIf="ntfKeywordConfig.facebook" class="mr-3 text-blue-700">Facebook</span>
+                <span *ngIf="ntfKeywordConfig.tiktok" class="mr-3 text-700">Tiktok</span>
+                <span *ngIf="ntfKeywordConfig.youTube" class="mr-3 text-red-700">YouTube</span>
+                <span *ngIf="ntfKeywordConfig.website" class="text-teal-700">Website</span>
+            </div>
+            <div class="col-12 md:col-2">
+                <strong class="block">Sắc thái</strong>
+            </div>
+            <div class="col-12 md:col-10">
+                <span *ngIf="ntfKeywordConfig.positive" class="mr-3 text-blue-700">Tích cực</span>
+                <span *ngIf="ntfKeywordConfig.negative" class="mr-3 text-red-700">Tiêu cực</span>
+                <span *ngIf="ntfKeywordConfig.neutral" class="mr-3 text-700">Trung lập</span>
+            </div>
+            <div class="col-12 md:col-2  flex align-items-center">
+                <strong class="block">Từ khoá</strong>
+            </div>
+            <div class="col-12 md:col-10">
+                <span class="inline-block mr-2 bg-gray-200 border-round-lg p-2 mt-1"
+                *ngFor="let kw of ntfKeywordConfig.keyword">{{kw}}</span>
+            </div>
+            <div class="col-12 md:col-2  flex align-items-center">
+                <strong class="block">Nguồn đích danh</strong>
+            </div>
+            <div class="col-12 md:col-10">
+                <span class="inline-block mr-2 bg-gray-200 border-round-lg p-2 mt-1"
+                *ngFor="let s of socialSources">{{s.name}}</span>
+                <span class="inline-block mr-2 bg-gray-200 border-round-lg p-2 mt-1"
+                *ngFor="let w of ntfKeywordConfig.sources?.website">{{w}}</span>
+            </div>
+            <div class="col-12 md:col-2 flex align-items-center">
+                <strong class="block">Người nhận</strong>
+            </div>
+            <div class="col-12 md:col-10">
+                <span class="inline-block mr-2 bg-gray-200 border-round-lg p-2 mt-1"
+                *ngFor="let u of ntfKeywordConfig.users">{{u.fullName}}</span>
+            </div>
+        </div>
+        <!-- </ng-template> -->
+    </ng-template>
+</app-dialog-content>
+<app-dialog-footer [isOnSave]="action !== 'view'" [isOnSaveContinue]="false" cancelLabel="Đóng" (onClose)="close()"
+    (onSave)="save()">
+</app-dialog-footer>

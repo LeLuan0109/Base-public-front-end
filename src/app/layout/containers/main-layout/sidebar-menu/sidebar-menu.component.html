@@ -1,0 +1,38 @@
+<ng-container>
+	<li class="item" [ngClass]="{'active-link' : checkUrlAcrive(item.routerLink)}" (click)="item.command? item.command() : null">
+    <ng-template [ngIf]="item.items && item.items.length > 0">
+      <app-link-menu 
+        *ngIf="subMenuPosition === ESubMenuPosition.BOTTOM"
+        [item]="item" [collapse]="submenu"
+        (onClick)="submenu.collapse = !submenu.collapse">
+      </app-link-menu>
+
+        <!-- menu cap 2-->
+      <app-sub-menu #submenu [items]="item.items" [position]="subMenuPosition">
+        <li class="item" *ngFor="let child of item.items" [ngClass]="{'active-link' : checkUrlAcrive(child.routerLink)}" (click)="child.command? child.command() : null">
+          <ng-template [ngIf]="child.items && child.items.length > 0">
+            <app-link-menu [item]="child" [collapse]="subChildMenu" (onClick)="subChildMenu.collapse = !subChildMenu.collapse">
+            </app-link-menu>
+
+            <!-- menu cap 3-->
+            <app-sub-menu #subChildMenu [items]="child.items">
+              <li class="item" *ngFor="let subChild of child.items" [ngClass]="{'active-link' : checkUrlAcrive(subChild.routerLink)}">
+                <app-link-menu [item]="subChild"></app-link-menu>
+              </li>
+            </app-sub-menu>
+
+          </ng-template>
+          <app-link-menu [item]="child" *ngIf="!child.items || child.items.length < 1"></app-link-menu>
+        </li>
+      </app-sub-menu>
+
+      <app-link-menu
+        *ngIf="subMenuPosition === ESubMenuPosition.TOP"
+        [item]="item" [collapse]="submenu"
+        (onClick)="submenu.collapse = !submenu.collapse">
+      </app-link-menu>
+      
+    </ng-template>
+	  <app-link-menu [item]="item" *ngIf="!item.items || item.items.length < 1"></app-link-menu>
+	</li>
+</ng-container>

@@ -1,0 +1,55 @@
+.progressbar-box {
+  display: flex;
+  justify-content: flex-end;
+  column-gap: 15px;
+  cursor: pointer;
+
+  .text-value {
+    flex: 2;
+    display: flex;
+    column-gap: 15px;
+    justify-content: flex-end;
+  }
+
+  .percent-bar {
+    flex: 5;
+    display: block;
+    position: relative;
+    padding: 2px;
+
+    .percent-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      opacity: 0.1;
+      border-radius: 4px;
+    }
+
+    .bar {
+      position: relative;
+      display: block;
+      min-height: 20px;
+      border-radius: 2px;
+
+      .percent {
+        position: absolute;
+        top: 50%;
+        right: -45px;
+        font-size: 12px;
+        transform: translate(0, -50%);
+
+        &.in {
+          right: 50%;
+          transform: translate(50%, -50%);
+          color: #fff !important;
+        }
+
+        &.zero {
+          right: -20px;
+        }
+      }
+    }
+  }
+}

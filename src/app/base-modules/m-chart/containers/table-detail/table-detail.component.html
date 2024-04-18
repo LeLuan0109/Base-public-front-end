@@ -1,0 +1,17 @@
+<app-dialog-header>
+   Chi tiết dữ liệu phân tích 
+  </app-dialog-header>
+  <app-dialog-content> 
+    <div class="grid m-5 p-disabled p-view view">
+        <div *ngFor="let serie of data?.series" class="field col-6 px-5 my-3"> 
+            <span class="p-float-label">
+                <input class="w-full" pInputText  placeholder="" id="{{serie.serie}}" [value]="data.item[serie.serie]" >
+                <label class="color-gray" for="{{serie.serie}}">  {{serie.label}} </label>
+            </span>
+
+        </div>
+    </div> 
+</app-dialog-content>
+
+ 
+

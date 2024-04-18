@@ -1,0 +1,9 @@
+<div class="file-wapper">
+  <span class="previous" (click)="previous()">
+    <i class="pi pi-angle-left"></i>
+  </span>
+  <span class="next" (click)="next()">
+    <i class="pi pi-angle-right"></i>
+  </span>
+  <img *ngIf="files.length > index" [src]="files[index]">
+</div>

@@ -1,0 +1,16 @@
+<div class="card-box {{styleClass}}" #content>
+  <div class="card-header">
+    <h3>
+      {{title}}
+      <i *ngIf="note" class="pi pi-info-circle" pTooltip="{{note}}" appendTo="target" tooltipPosition="bottom" [escape]="false"
+        tooltipStyleClass="note-tooltip custom-tooltip"></i>
+    </h3>
+    <span>
+      <p-button *ngIf="!isFullscreen" icon="pi pi-search-plus" class="card-icon" (onClick)="openFullscreen()"></p-button>
+      <p-button *ngIf="isFullscreen" icon="pi pi-search-minus" class="card-icon" (onClick)="exitFullscreen()"></p-button>
+    </span>
+  </div>
+  <div class="card-content">
+    <ng-content></ng-content>
+  </div>
+</div>

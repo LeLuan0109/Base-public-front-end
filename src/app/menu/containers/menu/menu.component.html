@@ -1,0 +1,44 @@
+<!-- <p-toolbar [delegateKeys]="delegateKeys" [itemCount]="totalElement" [isAdd]="false">
+</p-toolbar> -->
+<p-treeTable [value]="treeData">
+    <ng-template pTemplate="header">
+        <tr>
+            <th>Tên menu</th>
+            <th width="200px">Đường dẫn</th>
+            <th width="200px">Danh mục</th>
+            <th width="130px">Thứ tự</th>
+            <th width="130px">Trạng thái</th>
+            <th width="130px">Thao tác</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
+        <tr [ttRow]="rowNode">
+            <td>
+                <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
+                {{rowData.label}}
+            </td>
+            <td>
+                {{rowData.routerLink}}
+            </td>
+            <td>
+                {{position[rowData.position]}}
+            </td>
+            <td>{{viewSort(rowData.sort, rowNode.level)}}</td>
+            <td>
+                <span class="status_{{rowData.status}}">{{status[rowData.status]}}</span>
+            </td>
+            <td>
+                <m-tooltable [delegateKeys]="delegateKeys" [isUpdateStatus]="true" [isDelete]="false" [isView]="false"
+                    [iconUpdateStatus]="rowData.status === 1 ? 'pi pi-stop-circle' : 'pi pi-check-circle'"
+                    [labelUpdateStatus]="rowData.status === 1 ? 'Ẩn' : 'Hiển thị'"
+                    (onClick)="toolTableClick($event, rowData, rowNode)">
+                    <p-button icon="pi pi-sort-alt" styleClass="bg-none" pTooltip="Sắp xếp menu"
+                        tooltipPosition="bottom" (onClick)="sortFuncs(rowNode)">
+                    </p-button>
+                </m-tooltable>
+            </td>
+        </tr>
+    </ng-template>
+</p-treeTable>
+<p-confirmDialog icon="pi pi-info-circle" [closable]="false" class="confirmDialog" [header]="'Thông báo hệ thống'"
+    [style]="{width: '80vw', 'max-width': '500px'}"></p-confirmDialog>

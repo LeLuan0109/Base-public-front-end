@@ -1,0 +1,42 @@
+<p-card class="custom-card">
+  <ng-template pTemplate="header">
+    <div class="p-card-body pb-0">
+      <div class="grid">
+        <div class="col-10">
+          <div class="p-card-title">{{title}}</div>
+        </div>
+        <div class="col-2 text-right">
+          <a #download download="{{title}}.jpg" class="hidden"><i class="pi pi-save"></i></a>
+          <button type="button" class="b-none bg-none" pButton icon="pi pi-ellipsis-v"
+            (click)="menu.toggle($event)"></button>
+          <p-menu #menu [popup]="true" [model]="items"></p-menu>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+
+  <div #chartContent class="bg-white relative">
+    <div class="content-box">
+      <div class="p-card-title hidden-title">{{title}}</div>
+      <p-tabView class="custom-tabview">
+        <p-tabPanel *ngFor="let item of value" [header]="item.title">
+          <h4 class="h-title">{{item.title}}</h4>
+          <div class="grid bg-white" (click)="openLink(item)">
+            <div class="col-12" *ngIf="topRef">
+              <ng-container *ngTemplateOutlet="topRef"></ng-container>
+            </div>
+            <div class="col-12">
+              <p-chart width="100%" height="300px" type="doughnut" [data]="item.data" [options]="options"
+                *ngIf="!emptyData(item.data)"></p-chart>
+              <div *ngIf="emptyData(item.data)" class="empty-data">Không có dữ liệu
+              </div>
+            </div>
+            <div class="col-12" *ngIf="bottomRef">
+              <ng-container *ngTemplateOutlet="bottomRef"></ng-container>
+            </div>
+          </div>
+        </p-tabPanel>
+      </p-tabView>
+    </div>
+  </div>
+</p-card>

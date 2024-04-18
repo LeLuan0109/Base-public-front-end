@@ -1,0 +1,69 @@
+<div class="header">
+  <p class="current-page">{{ title }}</p>
+  <div class="right-container">
+    <div class="calendar-search-wrapper">
+      <m-reportToolbar *ngIf="isShowSearch" (onSearch)="onSearch($event)"></m-reportToolbar>
+    </div>
+    <div *ngIf="!isAdmin" class="wrap-company-name">
+      <span class="label">
+        Dự án
+        <span class="company-name">
+          {{ companyName }}
+        </span>
+      </span>
+    </div>
+    <div *ngIf="isAdmin" class="wrap-company-name">
+      <span class="label">
+        Dự án
+        <p-dropdown
+          (onChange)="changeOrganization($event.value)"
+          [options]="orgOptions"
+          [(ngModel)]="currentOrg"
+          optionLabel="companyName"
+          styleClass="w-full custom-multiSelect ml-1 select-company font-medium"
+          [placeholder]="currentOrg.companyName"
+        >
+        </p-dropdown>
+      </span>
+    </div>
+    <div class="vertical-bars"></div>
+    <div class="logo-wrapper">
+      <a class="logo" routerLink="/">
+        <img [src]="logo" />
+      </a>
+    </div>
+    <span class="vertical-bars"></span>
+    <button class="notification-wrapper" (click)="loadNotify(noti, $event)">
+      <img src="assets/images/icons/ic_noti.svg" />
+      <div *ngIf="totalUnreadMsg > 0" class="notification-number">{{ totalUnreadMsg > 99 ? '99+' : totalUnreadMsg }}</div>
+    </button>
+    <p-overlayPanel #noti my="center top" at="left center" [style]="{ width: '450px' }" [appendTo]="'body'">
+      <ng-template pTemplate>
+        <div class="notificaion-box" id="notification">
+          <div class="notificaion-scroll">
+            <ul class="messages">
+              <li *ngFor="let message of messages" class="cursor-pointer" (click)="readMessage(message)">
+                <span class="time">
+                  {{ message?.created | date : 'HH:ss dd/MM/yyyy' }}
+                </span>
+                <span
+                  pTooltip="{{ message?.content }}"
+                  tooltipPosition="top"
+                  tooltipStyleClass="tooltip-big-width"
+                  [ngClass]="{ 'font-bold': message.status === 0 }"
+                  class="content"
+                >
+                  {{ message?.content | strLimit : 40 : false }}
+                </span>
+                <span class="icon">
+                  <i *ngIf="message.status === 0" class="bi bi-envelope text-xl text-orange-400"></i>
+                  <i *ngIf="message.status === 1" class="bi bi-envelope-open text-xl text-orange-400"></i>
+                </span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </ng-template>
+    </p-overlayPanel>
+  </div>
+</div>

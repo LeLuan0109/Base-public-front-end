@@ -1,0 +1,91 @@
+:host ::ng-deep .r-toolbar {
+  position: sticky;
+  position: -webkit-sticky; // Needed for Safari browsers.
+  z-index: 10; // This prevents elements to be seen through the toolbar.
+  top: 0px; // Required for "position: sticky" to take effect.
+}
+
+.r-toolbar {
+  user-select: none;
+  position: relative;
+  font-size: 14px;
+  z-index: 99;
+  
+  .buttom-box {
+    width: 60px;
+    margin-left: auto;
+  }
+
+  .input-box {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    .item {
+      display: inline-flex;
+      border-right: 1px solid #dee2e6;
+      padding-right: 16px;
+      margin-left: 16px;
+      justify-content: space-between;
+      flex-grow: 4;
+
+      &:last-child {
+        border: none;
+      }
+
+      &:first-child {
+        margin-left: 0;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 991px) {
+  .r-toolbar {
+    position: absolute;
+    // padding: 0 1rem;
+    // left: 100px;
+
+    .input-box {
+      display: block;
+
+      .item {
+        width: 50%;
+        padding: 0;
+        margin: 0.5rem 0;
+
+        &:nth-child(2n) {
+          padding-left: 16px;
+          border: none;
+        }
+
+        &:nth-child(2n+1) {
+          padding-right: 16px;
+        }
+      }
+    }
+
+    ::ng-deep {
+      .p-divider-vertical.p-divider-center {
+        height: 83px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .r-toolbar {
+    .input-box {
+      .item {
+        width: 100%;
+        padding-left: 0;
+        padding-right: 16px;
+        border: none;
+
+        &:nth-child(2n) {
+          padding-left: 0;
+        }
+      }
+    }
+  }
+}

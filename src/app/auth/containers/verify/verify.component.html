@@ -1,0 +1,8 @@
+<div *ngIf="isVerifed === 1 else err" class="text-center">
+    <p>Bạn đã kích hoạt tài khoản thành công!</p>
+    <a routerLink="/auth/login">Đăng nhập</a>
+</div>
+
+<div #err>
+    <p>Đã có lỗi bạn vui long quay lại sau! Hoặc liên hệ tới holine để được giải đáp</p>
+</div>

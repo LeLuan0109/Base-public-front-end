@@ -1,0 +1,46 @@
+<p-card class="custom-card">
+  <ng-template pTemplate="header">
+    <div class="p-card-body pb-0">
+      <div class="grid">
+        <div class="col-10">
+          <div class="p-card-title">{{title}}</div>
+        </div>
+        <div class="col-2 text-right">
+          <a #download download="{{title}}.jpg" class="hidden"><i class="pi pi-save"></i></a>
+          <button type="button" class="b-none bg-none" pButton icon="pi pi-ellipsis-v"
+            (click)="menu.toggle($event)"></button>
+          <p-menu #menu [popup]="true" [model]="items"></p-menu>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+
+  <div #chartContent class="bg-white relative">
+    <div class="content-box">
+      <div class="p-card-title hidden-title">{{title}}</div>
+      <div class="grid bg-white tg-data-box">
+        <div class="col-12">
+          <table class="w-full table" #horizonTable>
+            <tr *ngFor="let item of value; let i=index;" [ngClass]="i%2==0 ? 'even':'odd'">
+              <td>
+                <a class="box" href="{{item.url}}" target="_blank">
+                  <h3 class="mb-1 text-700 font-size-14">{{item.title}}</h3>
+                  <small class="flex align-items-center">
+                    <img class="icon mr-1"
+                      [src]="'assets/images/icons/' + item.socPSourceType + '_' + item.createSource + '.png'" />
+                    {{item.socPSourceName}}
+                    <span class="ml-3 text-400">{{item.pubTime * 1000 | date: 'dd/MM/yy HH:mm'}}</span>
+                  </small>
+                  <p class="content">{{item.content}}</p>
+                </a>
+              </td>
+            </tr>
+          </table>
+          <div *ngIf="emptyData()" class="empty-data">
+            Không có dữ liệu
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</p-card>

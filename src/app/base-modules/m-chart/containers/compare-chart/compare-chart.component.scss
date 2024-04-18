@@ -1,0 +1,74 @@
+::ng-deep {
+  .section-detail {
+    display: flex;
+    align-items: center;
+  }
+
+  .section-detail .chart-legend {
+    padding-right: initial;
+  }
+
+  .section-detail .chart-content {
+    padding: initial;
+    justify-content: flex-end;
+    column-gap: 44px;
+    padding-right: 60px;
+  }
+
+  .section-detail .chart-content .chart-label {
+    display: flex;
+    align-items: center;
+    column-gap: 12px;
+  }
+
+  .section-detail .chart-content .chart-label .mention {
+    cursor: text;
+    width: initial;
+    margin-left: initial;
+  }
+
+  .section-detail .chart-content .chart-label .ic,
+  .section-detail .chart-content .chart-label .fav-icon {
+    cursor: initial;
+    margin-right: -30px;
+  }
+
+  .percent-bar {
+    width: 220px;
+    background: #f3f7fd;
+    border-radius: 4px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    padding: 2px;
+    display: -webkit-inline-box;
+  }
+
+  .grid .mention {
+    font-family: "Inter", sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 20px;
+    text-transform: uppercase;
+    font-feature-settings: 'tnum' on, 'lnum' on;
+    color: #f76707;
+    width: 80px;
+    text-align: right;
+    margin-left: auto;
+    width: fit-content;
+    cursor: pointer;
+  }
+
+  .grid .percent-bar .bar {
+    border-radius: 3px;
+    min-width: 1px;
+    height: 100%;
+  }
+
+  .grid .percent-bar .percent {
+    margin-left: 5px;
+    font-weight: 600;
+    font-size: 12px;
+  }
+}

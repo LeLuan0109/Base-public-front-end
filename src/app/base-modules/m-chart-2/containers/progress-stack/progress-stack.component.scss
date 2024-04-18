@@ -1,0 +1,95 @@
+.progressbar-box {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  column-gap: 15px;
+  align-items: center;
+  margin: 0;
+
+  .text-label {
+    flex: 2;
+    column-gap: 15px;
+    justify-content: flex-start;
+    padding: 6px 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  .progress-box {
+    padding: 6px 1rem 6px 0;
+
+    .percent-box {
+      display: flex;
+      height: var(--small-progress-bar-heigh);
+      background-color: #EEE;
+      border-radius: var(--border-radius-progress-bar);
+      overflow: hidden;
+
+      .percent-stacked {
+        display: flex;
+        color: var(--white);
+
+        .percent-item {
+          height: var(--small-progress-bar-heigh);
+          display: flex;
+
+          .percent {
+            padding: 2px 0px 2px 5px;
+          }
+
+        }
+      }
+
+    }
+
+    .text-total {
+      padding-right: 5px;
+      display: flex;
+      align-items: center;
+      margin-left: 0.5rem;
+      color: var(--subtext-color)
+    }
+  }
+}
+
+::ng-deep {
+  .total-lable {
+    color: var(--title-color);
+    margin: 0 0 10px 0 !important;
+  }
+
+  .custom-toolip-content {
+    padding: 5px;
+    min-width: 200px !important;
+    font-weight: var(--bold-font-weight);
+    color: var(--subtext-color);
+
+    .label-tootlip {
+      font-weight: 600;
+      font-size: var(--default-title-size);
+      font-size: var(--default-title-size) !important;
+      color: var(--title-color);
+    }
+
+    .total-lable {
+      font-size: var(--default-text-size);
+      color: var(--title-color);
+      font-weight: var(--bold-font-weight);
+    }
+
+    .item-label {
+      padding-left: 5px;
+      font-size: var(--default-title-size);
+      color: var(--title-color);
+    }
+
+    .icon-item {
+      font-size: var(--small-text-size);
+    }
+
+    .percent-item {
+      padding-left: 28px;
+    }
+  }
+}

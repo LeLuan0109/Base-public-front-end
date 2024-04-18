@@ -1,0 +1,18 @@
+<div class="{{styleClass}}" *ngIf="!isEmpty">
+  <div class="grid mb-2 mt-2 cursor-pointer" *ngFor="let label of value.labels; let i=index" (click)="openLink(i)">
+    <div class="col-4">
+      <i class="{{value.datasets[i].icon}} {{value.datasets[i].serie}}"></i>
+      <span class="ml-1">{{label}}</span>
+    </div>
+    <div class="col-8">
+      <div class="flex">
+        <span class="w-2 text-right pr-1">{{value.datasets[i].data[0] | numberView}}</span>
+        <div class="w-10">
+          <p-progressBar class="custom-progress" styleClass="{{value.datasets[i].serie}}"
+            [ngClass]="value.datasets[i].data[0] / total > 0.5 ? 'value-in' : 'value-out'"
+            [value]="(value.datasets[i].data[0] / total) * 100 | number: '1.0-2'"></p-progressBar>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

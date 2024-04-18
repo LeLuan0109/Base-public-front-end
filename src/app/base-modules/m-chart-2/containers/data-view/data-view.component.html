@@ -1,0 +1,60 @@
+<p-card class="custom-card">
+  <ng-template pTemplate="header">
+    <div class="p-card-body pb-0">
+      <div class="grid">
+        <div class="col-10">
+          <div class="p-card-title">{{title}}</div>
+        </div>
+        <div class="col-2 text-right">
+          <a #download download="{{title}}.jpg" class="hidden"><i class="pi pi-save"></i></a>
+          <button type="button" class="b-none bg-none" pButton icon="pi pi-ellipsis-v"
+            (click)="menu.toggle($event)"></button>
+          <p-menu #menu [popup]="true" [model]="items"></p-menu>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+
+  <div #chartContent class="bg-white relative">
+    <div class="content-box">
+      <div class="p-card-title hidden-title">{{title}}</div>
+      <div class="grid bg-white tg-data-box">
+        <div class="col-12">
+          <table class="w-full table" #dataTable>
+            <ng-template [ngIf]="!emptyData()">
+              <tr>
+                <th *ngFor="let col of value[0].data">
+                  {{col.label}}
+                </th>
+              </tr>
+              <tr>
+                <td *ngFor="let col of value[0].data">
+                </td>
+              </tr>
+              <tr *ngFor="let item of value; let i=index;" [ngClass]="i%2==0 ? 'even':'odd'">
+                <td *ngFor="let col of item.data" [ngClass]="{'text-center': col.isNumber}">
+                  <ng-template [ngIf]="item.link && labelLink === col.label" [ngIfElse]="notLink">
+                    <a class="box" href="{{item.link}}" target="_blank">
+                      {{col.value}}
+                    </a>
+                  </ng-template>
+                  <ng-template #notLink>
+                    <span *ngIf="col.isNumber">
+                      {{col.value | number: '1.0-0'}}
+                    </span>
+                    <span *ngIf="!col.isNumber">
+                      {{col.value}}
+                    </span>
+                  </ng-template>
+                </td>
+              </tr>
+            </ng-template>
+          </table>
+          <div *ngIf="emptyData()" class="empty-data">
+            Không có dữ liệu
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</p-card>

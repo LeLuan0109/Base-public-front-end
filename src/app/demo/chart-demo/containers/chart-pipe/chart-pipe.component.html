@@ -1,0 +1,16 @@
+<p-card header="Demo chart pipe">
+    <p-chart #scp width="180px" height="180px" type="pie" [data]="pipeData" [options]="pipeOptions"
+    class="custom-pie"></p-chart>
+    <div class="legend">
+      <ul>
+        <li *ngFor="let item of pipeData.labels; index as i" (click)="legendClickCallback(scp, i)"
+          [ngClass]="{ 'hidden-chart': !legendPie[i] }">
+          <span class="color" [ngStyle]="{'background-color': legendColors[i]}"></span>
+          <span>{{ item }}</span>
+          <span *ngIf="legendPie[i]">{{ percentage[i] }}%</span>
+          <span *ngIf="!legendPie[i]">0%</span>
+        </li>
+      </ul>
+    </div>
+  </p-card>
+  

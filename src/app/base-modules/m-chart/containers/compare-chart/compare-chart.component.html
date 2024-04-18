@@ -1,0 +1,12 @@
+<div *ngFor="let item of data; let i=index">
+  <div class="section-detail grid my-1">
+    <div class="col-4 chart-legend">
+      <li>{{item?.title}}</li>
+    </div>
+    <div class="col-8">
+      <m-progressbar (click)="onClick(i)" pTooltip="Nhấn để xem dữ liệu phân tích" [color]="item?.color"
+        [value]="item.absoluteData" [rate]="(item?.rateData*1) || 0" [icon]="item.icon" tooltipPosition="bottom"
+        [image]="item.image"></m-progressbar>
+    </div>
+  </div>
+</div>

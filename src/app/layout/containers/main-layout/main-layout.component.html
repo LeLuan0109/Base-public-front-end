@@ -1,0 +1,9 @@
+<!-- <app-header></app-header> -->
+<div class="main" [attr.data-theme]="theme" #mainContainer>
+  <app-sidebar class="layout-sidebar" (onChangeSize)="onMenuResize($event)"></app-sidebar>
+  <div id="mainContent" class="layout-content" >
+    <app-header class="layout-header" [ngClass]="{ 'header-resize': isMenuSmall }"></app-header>
+    <router-outlet></router-outlet>
+    <app-spinner></app-spinner>
+  </div>
+</div>

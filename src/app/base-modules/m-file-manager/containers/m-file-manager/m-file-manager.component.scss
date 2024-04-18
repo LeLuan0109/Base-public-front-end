@@ -1,0 +1,55 @@
+.file-header {
+  display: block;
+  width: 100%;
+  border: 1px solid #ced4da;
+  background-color: #fafafb;
+  border-radius: 8px 8px 0 0;
+  padding: 15px;
+
+  ::ng-deep {
+    .p-button {
+      width: auto;
+      margin-right: 15px;
+    }
+  }
+}
+
+.file-content {
+  display: block;
+  width: 100%;
+  border: 1px solid #ced4da;
+  border-top: none;
+  background-color: #fff;
+  border-radius: 0 0 8px 8px;
+  min-height: 50px;
+  padding: 15px;
+
+  .lstFile {
+    display: block;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+
+    li {
+      display: inline-block;
+      width: 100%;
+      max-width: 253px;
+      padding: 13px;
+      position: relative;
+      text-align: center;
+
+      .remove {
+        position: absolute;
+        top: 3px;
+        right: 3px;
+        color: #c5394c;
+        cursor: pointer;
+        font-size: 18px;
+      }
+
+      i {
+        font-size: 64px;
+      }
+    }
+  }
+}

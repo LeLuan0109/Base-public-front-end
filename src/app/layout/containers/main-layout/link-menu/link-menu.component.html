@@ -1,0 +1,18 @@
+<a *ngIf="item.routerLink" [class]="item.styleClass" [routerLink]="item.routerLink" [queryParams]="item.queryParams" (click)="onLinkClick($event)">
+  <span class="menu-icon {{item.icon}}" *ngIf="item.icon"></span>
+  <span class="menu-icon " *ngIf="!item.icon">&nbsp;&nbsp;&nbsp;</span>
+  <span class="menu-text">{{item.label}}</span>
+  <ng-container *ngIf="collapse !== null">
+    <span class="menu-droupdown pi pi-angle-down" *ngIf="!collapse.collapse"></span>
+    <span class="menu-droupdown pi pi-angle-up" *ngIf="collapse.collapse"></span>
+  </ng-container>
+</a>
+<a *ngIf="!item.routerLink" [class]="item.styleClass" (click)="onLinkClick($event)">
+  <span class="menu-icon {{item.icon}}" *ngIf="item.icon"></span>
+  <span class="menu-icon" *ngIf="!item.icon">&nbsp;&nbsp;&nbsp;</span>
+  <span class="menu-text">{{item.label}}</span>
+  <ng-container *ngIf="collapse !== null">
+    <span class="menu-droupdown pi pi-angle-down" *ngIf="!collapse.collapse"></span>
+    <span class="menu-droupdown pi pi-angle-up" *ngIf="collapse.collapse"></span>
+  </ng-container>
+</a>

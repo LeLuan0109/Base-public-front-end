@@ -1,0 +1,42 @@
+<div #dropdown class="dropdown-wapper {{styleClass}}">
+  <span id="label" class="selected" (click)="onShow(opDropdown, $event)">
+    <span class="text"
+      pTooltip="{{ valueSelected ? (valueSelected[dataLabel] ? valueSelected[dataLabel] : valueSelected[dataKey]) : placeholder }}"
+      tooltipPosition="bottom">
+      {{ (valueSelected ? (valueSelected[dataLabel] ? valueSelected[dataLabel] : valueSelected[dataKey]) : placeholder)  }}
+    </span>
+    <i class="pi pi-angle-down"></i>
+    <span class="pi pi-times clear" (click)="clearData()" *ngIf="valueSelected && valueSelected[dataKey]"></span>
+  </span>
+  <p-overlayPanel #opDropdown [style]="{ width: '450px' }" (onHide)="onHide()">
+    <ng-template pTemplate>
+      <div class="search">
+        <p-button icon="pi pi-search" (onClick)="onLayzyLoadData({filter})"></p-button>
+        <input type="text" [(ngModel)]="filter" pInputText placeholder="Tìm kiếm" class="custom-inputtext-search"
+        (keyup.enter)="onLayzyLoadData({filter})" />
+      </div>
+      <p-table [value]="options" [scrollable]="true" [rows]="size" scrollHeight="250px" [virtualScroll]="true"
+        [virtualRowHeight]="50" selectionMode="single" [dataKey]="dataKey" [(selection)]="valueSelected"
+        (onRowSelect)="onRowSelect($event)" (onRowUnselect)="onRowUnselect($event)"
+        (onLazyLoad)="onLayzyLoadData($event)" [lazy]="true" [totalRecords]="totalRecords" [(first)]="first"
+        [lazyLoadOnInit]="false" id="{{id}}">
+        <ng-template pTemplate="body" let-item>
+          <tr [pSelectableRow]="item" (click)="opDropdown.hide()">
+            <td>
+              {{ item[dataLabel] }}
+            </td>
+          </tr>
+        </ng-template>
+        <!-- <ng-template pTemplate="emptymessage">
+          <tr>
+            <td align="center" style="background-color:#fff" class="text-center align-items-center w-full">
+              <div class="align-items-center w-full">
+                Không tìm thấy kết quả
+              </div>
+            </td>
+          </tr>
+        </ng-template> -->
+      </p-table>
+    </ng-template>
+  </p-overlayPanel>
+</div>

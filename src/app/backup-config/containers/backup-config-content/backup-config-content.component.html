@@ -1,0 +1,24 @@
+<div class="grid pt-5">
+    <div class="col-12 text-left">
+        <ul class="inline-block text-left p-0 m-0">
+            <li class="mb-2"><i class="pi pi-check mr-2 text-blue-700"></i><b class="text-blue-700">Đường dẫn</b></li>
+            <li class="mb-3 pl-5">{{config.path}}</li>
+            <li class="mb-2"><i class="pi pi-check mr-2 text-blue-700"></i><b class="text-blue-700">Tên file</b></li>
+            <li class="mb-3 pl-5">{{config.fileName}}</li>
+            <li class="mb-2"><i class="pi pi-check mr-2 text-blue-700"></i><b class="text-blue-700">Tần suất</b></li>
+            <li class="mb-3 pl-5">
+                <span *ngIf="config.timesType === 1">Hàng ngày</span>
+                <span *ngIf="config.timesType === 2">{{week[config.backupDate]}} hàng tuần</span>
+                <span *ngIf="config.timesType === 3">Ngày {{config.backupDate}} hàng tháng</span>
+            </li>
+        </ul>
+
+    </div>
+</div>
+<div class="grid pt-2">
+    <div class="col-12">
+        <p-button icon="pi pi-pencil" type="button" [label]="'Cập nhật'" styleClass="p-button-primary" (onClick)="onEdit()"
+            class="m-l-170">
+        </p-button>
+    </div>
+</div>

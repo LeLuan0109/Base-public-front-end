@@ -1,0 +1,23 @@
+.viewData {
+    display: block;
+    margin: 0;
+    padding: 0;
+    li {
+        display: inline-flex;
+        width: 33.3%;
+        padding: 15px;
+        span {
+            &:first-child {
+                margin-right: auto;
+            }
+            &:last-child {
+                margin-left: auto;
+            }
+        }
+    }
+}
+.view-full {
+    .chart-map {
+        height: 80vh;
+    }
+}

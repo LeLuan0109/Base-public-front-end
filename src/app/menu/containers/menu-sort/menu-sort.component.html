@@ -1,0 +1,22 @@
+<app-dialog-header>
+    {{ title }}
+  </app-dialog-header>
+  
+  <app-dialog-content>
+   <div class="grid pt-3">
+    <div class="col-12">
+        <p-orderList [value]="funcs" [(selection)]="selectFuncs" [dragdrop]="true" (onReorder)="isChage=true">
+            <ng-template let-func pTemplate="item">
+                <div>
+                    <i class="{{func.icon}} mr-2"></i>
+                    <strong>{{func.label}}</strong>
+                    <span class="block">{{func.routerLink}}</span>
+                </div>
+            </ng-template>
+        </p-orderList>
+    </div>
+   </div>
+  </app-dialog-content>
+
+  <app-dialog-footer  [isOnSaveContinue]="false" (onSave)="save()" (onClose)="close()" [disabledSave]="!isChage">
+  </app-dialog-footer>

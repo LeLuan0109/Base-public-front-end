@@ -1,0 +1,13 @@
+<ul class="st-box" [class]="styleClass" *ngFor=" let item of value">
+  <li>
+    <div class="flex">
+      <m-progress-stack [(pgCollapse)]="item.collapse" [isCollapse]="item.items && item.items.length > 0" class="w-12"
+        [value]=" item?.value" [label]="item?.tag" [total]="item?.total" [ratioMax]="(item?.total / totalMax) * 100"
+        [valueType]="'ratio'" (onClick)="showPost($event)" [styleClass]="'custom-progess'" [showPercent]='false'>
+      </m-progress-stack>
+    </div>
+  </li>
+  <li [@collapse]="item.collapse">
+    <app-tags-sentiment-level styleClass="st-sub" [value]="item.items" [totalMax]="totalMax"></app-tags-sentiment-level>
+  </li>
+</ul>

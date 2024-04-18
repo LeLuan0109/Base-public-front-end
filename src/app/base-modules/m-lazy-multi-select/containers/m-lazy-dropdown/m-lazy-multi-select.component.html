@@ -1,0 +1,49 @@
+<div #dropdown class="dropdown-wapper {{styleClass}}">
+  <span id="label" class="selected" (click)="onShow(opDropdown, $event)">
+    <span class="text" pTooltip="{{ dataTooltip }}" tooltipPosition="bottom">
+      {{ value }}
+    </span>
+    <i class="pi pi-angle-down"></i>
+    <span class="pi pi-times clear" (click)="clearData()" *ngIf="valueSelected && valueSelected.length > 0"></span>
+  </span>
+  <p-overlayPanel #opDropdown [style]="{ width: '450px' }" (onHide)="onHide()">
+    <ng-template pTemplate>
+      <div class="search">
+        <p-button icon="pi pi-search" (onClick)="onLayzyLoadData({filter})"></p-button>
+        <input type="text" [(ngModel)]="filter" pInputText placeholder="Tìm kiếm" class="custom-inputtext-search"
+          (keyup.enter)="onLayzyLoadData({filter})" />
+      </div>
+      <p-table [value]="options" [scrollable]="true" [rows]="size" scrollHeight="250px" [virtualScroll]="true"
+        [virtualRowHeight]="45" selectionMode="multiple" [dataKey]="dataKey" [(selection)]="valueSelected"
+        (onRowSelect)="onRowSelect($event)" (onRowUnselect)="onRowUnselect($event)"
+        (onLazyLoad)="onLayzyLoadData({filter})" [lazy]="true" [totalRecords]="totalRecords" [(first)]="first"
+        [lazyLoadOnInit]="false" id="{{id}}">
+        <ng-template pTemplate="header">
+          <tr *ngIf="showToggleAll">
+            <th>
+              <p-tableHeaderCheckbox class="mr-2" ></p-tableHeaderCheckbox>
+              {{headerLabel}}&nbsp;
+              <span class="close" (click)="opDropdown.hide()"><i class="pi pi-times"></i></span>
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-item>
+          <tr [pSelectableRow]="item">
+            <td>
+              <p-tableCheckbox [value]="item" class="mr-2"></p-tableCheckbox>{{ item[dataLabel] }}
+            </td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+          <tr *ngIf="showEmtyMessage">
+            <td align="center" style="background-color:#fff" class="text-center align-items-center w-full">
+              <div class="align-items-center w-full">
+                Không tìm thấy kết quả
+              </div>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </ng-template>
+  </p-overlayPanel>
+</div>

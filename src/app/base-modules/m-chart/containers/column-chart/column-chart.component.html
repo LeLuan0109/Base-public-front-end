@@ -1,0 +1,99 @@
+<p-card class="report-chart">
+  <ng-template pTemplate="header" *ngIf="showHeader">
+    <div class="grid px-2 mx-0 report-card-header">
+      <div class="col-10 flex align-content-center text-left align-items-center">
+        <span class="font-bold uppercase">{{title}}</span>
+      </div>
+      <div class="col-2 align-content-center text-right align-items-center flex flex-row-reverse">
+        <!-- <p-button label="Dữ liệu phân tích" icon="pi pi-database" (click)="dataStatistic()"></p-button> 
+        <p-button label="Ghi chú" icon="pi pi-comment" (click)="comment()" class="mx-2"></p-button> -->
+        <button type="button" class="b-none bg-none" pButton icon="pi pi-ellipsis-v"
+          (click)="menu.toggle($event)"></button>
+        <p-menu #menu [popup]="true" [model]="items"></p-menu>
+      </div>
+    </div>
+  </ng-template>
+  <div id="grid" class="pt-2">
+    <div class="col-12">
+      <div #tableScreen class="bg-white">
+        <div class="content-box">
+          <h4 class="hidden-title">{{title}}</h4>
+          <!-- {{reportCode}} {{series | json}}  -->
+          <div *ngIf="emptyData()" class="empty-data">Không có dữ liệu</div>
+          <!-- Danh sach thong tin khac khong phai bai viet -->
+          <table #columnTable class="table w-full table-data bg-white"
+            *ngIf="!emptyData() && reportCode !== 'POST_INTERACT' && reportCode !== 'TOP_POST' ">
+            <thead>
+              <tr>
+                <th width="60" *ngIf="checkbox"> <p-checkbox (onChange)="updateCheckbox($event,1)" [value]="true"
+                    [(ngModel)]="selectAll" binary="true" class="mr-3 text-center"></p-checkbox></th>
+                <th [align]="'center'" class="text-center col" *ngFor="let serie of series">
+                  {{serie.label}}
+                </th>
+                <th width="80" *ngIf="!showHeader">Thao tác</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let list of data; let i=index" class="table-data-row">
+                <td *ngIf="checkbox">
+                  <p-checkbox *ngIf="selectAll" [value]="true" [(ngModel)]="selectAll" binary="true"
+                    class="mr-3"></p-checkbox>
+                  <p-checkbox *ngIf="!selectAll" [value]="list.id" [(ngModel)]="selectedRecords"
+                    (onChange)="updateCheckbox($event)" class="mr-3"></p-checkbox>
+                </td>
+                <td [align]="isCentered(list[column['serie']], column['serie']  )?'center':'left'"
+                  *ngFor="let column of series" class="px-2">
+                  {{ dataFormat(list[column['serie']], column['serie']) }}
+                  <!-- <span *ngIf="isNumber(list[column['serie']] )">{{ list[column['serie']] | number }}</span>
+                <span *ngIf="!isNumber(list[column['serie']] )">{{ list[column['serie']]?? '-' }}</span> -->
+                </td>
+                <td *ngIf="!showHeader" [align]="'left'" class="px-1">
+                  <p-button icon="pi pi-eye p-button-icon" styleClass="bg-none mr-2" pTooltip="Xem chi tiết"
+                    tooltipPosition="bottom" (click)="detailView(list,series)"></p-button>
+                  <p-button icon="pi pi-share-alt p-button-icon" *ngIf="hasOriginView(list)" styleClass="bg-none mr-2"
+                    pTooltip="Xem trang website gốc" target tooltipPosition="bottom"
+                    (onClick)="onOriginView(list)"></p-button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <!-- Danh sach cac bai viet top -->
+          <table class="table w-full table-data bg-white"
+            *ngIf="!emptyData() && reportCode === 'POST_INTERACT'  ||  reportCode === 'TOP_POST'  ">
+            <thead>
+              <tr>
+                <th width="60" *ngIf="checkbox"> <p-checkbox (onChange)="updateCheckbox($event,1)" [value]="true"
+                    [(ngModel)]="selectAll" binary="true" class="mr-3 text-center"></p-checkbox></th>
+                <ng-template ngFor let-i="index" let-c="count" let-serie [ngForOf]="series">
+                  <th *ngIf="serie.label !== 'Đường dẫn' " [align]="'center'" class="text-center col">
+                    {{serie.label}}
+                  </th>
+                </ng-template>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let list of data; let i=index" class="table-data-row">
+                <td *ngIf="checkbox">
+                  <p-checkbox *ngIf="selectAll" [value]="true" [(ngModel)]="selectAll" binary="true"
+                    class="mr-3"></p-checkbox>
+                  <p-checkbox *ngIf="!selectAll" [value]="list.id" [(ngModel)]="selectedRecords"
+                    (onChange)="updateCheckbox($event)" class="mr-3"></p-checkbox>
+                </td>
+                <ng-template ngFor let-i="index" let-c="count" let-column [ngForOf]="series">
+                  <td *ngIf="column['serie'] === 'title' ">
+                    <a [href]="list['url']" target="_blank" class="no-underline"> {{list['title']}}</a>
+                  </td>
+                  <td *ngIf="column['serie'] !== 'url' && column['serie'] !== 'title'"
+                    [align]="isCentered(list[column['serie']],  column['serie'] )?'center':'left'" class="px-2">
+                    {{ dataFormat(list[column['serie']], column['serie']) }}
+                  </td>
+                </ng-template>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</p-card>

@@ -1,0 +1,125 @@
+<app-dialog-header>
+  {{title}}
+</app-dialog-header>
+<app-dialog-content>
+  <form [formGroup]="mutation!" autocomplete="off" role="presentation">
+    <div class="p-fluid pt-0" *ngIf="action !== noteAction" [ngClass]="{'p-disabled p-view view' : action === 'view'}">
+      <div class="grid mt-3">
+        <div class="field col-12 md:col-6">
+          <span class="p-float-label">
+            <input id="fullName" type="text" pInputText formControlName="fullName" [maxlength]="255">
+            <label for="fullName">
+              Họ và tên
+              <span class="p-error">*</span>
+            </label>
+          </span>
+          <span class="p-error" *ngIf="fullName.errors && (fullName.dirty || fullName.touched ) ">
+            <small *ngIf="fullName.errors['required'] || fullName.errors['whitespace']">Họ và tên không được để trống</small>
+            <small *ngIf="fullName.errors['maxlength']">Họ và tên không được vượt quá 255 ký tự</small>
+          </span>
+        </div>
+        <div class="field col-12 md:col-6">
+          <span class="p-float-label">
+            <p-dropdown [options]="groupOpt" formControlName="userGroupId" placeholder="&nbsp;" [showClear]="true"
+              inputId="userGroupId"></p-dropdown>
+            <label for="userGroupId">
+              Nhóm người dùng
+            </label>
+          </span>
+        </div>
+      </div>
+      <div class="grid mt-2">
+        <div class="field col-12 md:col-6">
+          <span class="p-float-label">
+            <input id="phone" type="text" pInputText formControlName="phone">
+            <label for="phone">
+              Số điện thoại
+              <span class="p-error">*</span>
+            </label>
+          </span>
+          <span class="p-error" *ngIf="phone.errors && (phone.dirty || phone.touched ) ">
+            <small *ngIf="phone.errors['required']">Số điện thoại không được để trống</small>
+            <small *ngIf="phone.errors['maxlength']">Số điện thoại không đúng định dạng</small>
+            <small *ngIf="phone.errors['pattern']">Số điện thoại không đúng định dạng</small>
+          </span>
+        </div>
+        <div class="field col-12 md:col-6">
+          <span class="p-float-label">
+            <input id="email" type="text" pInputText formControlName="email">
+            <label for="email">
+              Email
+              <span class="p-error">*</span>
+            </label>
+          </span>
+          <span class="p-error" *ngIf="email.errors && (email.dirty || email.touched ) ">
+            <small *ngIf="email.errors['required']">Email không được để trống</small>
+            <small *ngIf="email.errors['pattern']">Email không đúng định dạng</small>
+            <small *ngIf="email.errors['maxlength']">Email không đúng định dạng</small>
+          </span>
+        </div>
+      </div>
+    </div>
+    <h2 *ngIf="action !== noteAction">Phân quyền</h2>
+    <div class="table-wapper" [ngClass]="{'delegate': action === noteAction, 'p-disabled p-view view' : action === 'view'}">
+      <div class="table-scoll">
+        <table class="table">
+          <tr>
+            <th class="p-text-center">
+              Chức năng
+            </th>
+            <th class="text-center">
+              <p-checkbox formControlName="all" [binary]="true" (onChange)="changeAll()"></p-checkbox>
+            </th>
+            <th *ngFor="let col of actions;let index=indexCol" class="text-center">
+              {{col.name}}<br />
+              <p-checkbox formControlName="col_{{col.code}}" [binary]="true"
+                (onChange)="changeCol(col, indexCol)"></p-checkbox>
+            </th>
+          </tr>
+          <ng-container *ngFor="let row of functions; let index=indexRow">
+            <tr>
+              <td>
+                {{row.label}}
+              </td>
+              <td class="text-center">
+                <p-checkbox formControlName="row_{{row.code}}" [binary]="true"
+                  (onChange)="changeRow(row, indexRow)"></p-checkbox>
+              </td>
+              <ng-template [ngIf]="!row.actions">
+                <td [colSpan]="actions.length"></td>
+              </ng-template>
+              <ng-template [ngIf]="row.actions">
+                <td *ngFor="let col of actions; let index=indexCol" [formArrayName]="row.code" class="text-center">
+                  <p-checkbox *ngIf="row.actions[col.code] === true || row.actions[col.code] === false"
+                    [formControlName]="col.code" [binary]="true" (onChange)="changeCell(row, col)"></p-checkbox>
+                </td>
+              </ng-template>
+            </tr>
+            <ng-template [ngIf]="row.items!.length > 0">
+              <tr *ngFor="let sub of row.items">
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{sub.label}}</td>
+                <td class="text-center">
+                  <p-checkbox formControlName="row_{{sub.code}}" [binary]="true"
+                    (onChange)="changeRow(sub, indexRow, row)"></p-checkbox>
+                </td>
+                <ng-template [ngIf]="!sub.actions">
+                  <td [colSpan]="actions.length"></td>
+                </ng-template>
+                <ng-template [ngIf]="sub.actions">
+                  <td *ngFor="let col of actions; let index=indexCol" [formArrayName]="sub.code" class="text-center">
+                    <p-checkbox *ngIf="sub.actions[col.code] === true || sub.actions[col.code] === false"
+                      [formControlName]="col.code" [binary]="true" (onChange)="changeCell(sub, col, row)"></p-checkbox>
+                  </td>
+                </ng-template>
+              </tr>
+            </ng-template>
+          </ng-container>
+        </table>
+      </div>
+    </div>
+  </form>
+</app-dialog-content>
+
+<app-dialog-footer [isOnSave]="action !== 'view'" [isOnSaveContinue]="action === 'insert'" (onSave)="save()" (onSaveContinue)="save(false)" (onClose)="close()"
+  [disabledSave]="mutation?.invalid" [cancelLabel]="action === 'view' ? 'Đóng' : 'Huỷ'">
+</app-dialog-footer>

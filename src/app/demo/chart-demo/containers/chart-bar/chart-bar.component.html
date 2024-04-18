@@ -1,0 +1,13 @@
+
+
+<p-card header="Demo Chart Bar">
+  <p-chart #mtcb width="100%" height="300px" type="bar" [data]="barData" [options]="barOptions">
+  </p-chart>
+  <ul class="legend">
+    <li *ngFor="let item of barData.datasets; index as i" (click)="legendClickCallback(mtcb, i)"
+      [ngClass]="{'hidden-chart': !legendLine[i]}">
+      <i class="box" [ngStyle]="{'background-color': item.borderColor}"></i>
+      <span>{{item.label}}</span>
+    </li>
+  </ul>
+</p-card>

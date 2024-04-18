@@ -1,0 +1,27 @@
+::ng-deep {
+  .chart-title {
+    display: none;
+    color: #52347f;
+    padding-left: 5px;
+  }
+
+  .show-all {
+    width: 500px;
+    padding-left: 15px;
+    padding-right: 15px;
+
+    .p-tabview-nav-content {
+      display: none;
+    }
+
+    .chart-title {
+      display: block;
+    }
+
+    .p-tabview-panel {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+  }
+}

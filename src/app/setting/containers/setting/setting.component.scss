@@ -1,0 +1,112 @@
+.settings {
+  display: block;
+  margin: 30px auto;
+  width: 100%;
+  max-width: 1024px;
+  box-shadow: 1px 1px 6px -4px #000;
+  padding: 30px;
+  border-radius: 20px;
+  background-color: #fff;
+
+  .avatar-title {
+    color: #171725;
+  }
+
+  .avatar {
+    display: block;
+    margin: 15px 0;
+    ::ng-deep {
+      .avatar-icon {
+        width: 100px;
+        height: 100px;
+
+        .p-avatar-icon {
+          font-size: 57px;
+        }
+      }
+    }
+
+    .p-button {
+      display: inline-block;
+      vertical-align: top;
+      margin-top: 18px;
+      margin-left: 10px;
+      border-color: #f1f2f6;
+      background-color: #ffffff;
+      color: #627087;
+      border-radius: 10px;
+      font-weight: 500;
+      padding: 0.5rem 1.5rem;
+    }
+
+    .p-button.green {
+      color: #45deb0;
+    }
+  }
+
+  ul {
+    padding: 0;
+
+    li {
+      border-bottom: 1px solid #eceef3;
+      margin-bottom: 35px;
+      padding-bottom: 20px;
+
+      .label {
+        display: flex;
+        margin-bottom: 5px;
+
+        label {
+          color: #333941;
+          font-weight: 600;
+        }
+
+        span {
+          margin-left: auto;
+          color: #6d798d;
+        }
+      }
+
+      input {
+        border-radius: 10px;
+
+        &:focus,
+        &:hover {
+          box-shadow: none;
+          border-color: #f1592b;
+        }
+      }
+
+      p {
+        margin: 5px 0;
+      }
+
+      .flex {
+        align-items: center;
+
+        span {
+          display: inline-block;
+          vertical-align: middle;
+
+          img {
+            margin-right: 10px;
+          }
+        }
+
+        .p-button {
+          margin-left: auto;
+          width: auto;
+          font-weight: 600;
+          background-color: transparent;
+          border-radius: 10px;
+        }
+      }
+    }
+  }
+
+  .save.p-button {
+    font-weight: 600;
+    border-radius: 10px;
+    padding: 0.5rem 1.5rem;
+  }
+}

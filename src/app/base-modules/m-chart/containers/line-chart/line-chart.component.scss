@@ -1,0 +1,19 @@
+::ng-deep .table-data-row {
+    border-bottom: 1px solid #eee;
+}
+
+::ng-deep .table-data {
+    border-collapse: collapse;
+}
+
+::ng-deep .table-data td {
+    padding: 10px 20px;
+    border-right: 1px solid #ccc;
+}
+
+::ng-deep .btn-chart-download .p-button {
+    background-color: #fff!important;
+    color: #52347f!important;
+    border: none!important;
+
+}

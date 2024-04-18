@@ -1,0 +1,145 @@
+.dropdown-wapper {
+  display: block;
+
+  span#label {
+    display: inline-flex;
+    cursor: pointer;
+    align-items: center;
+    width: 100%;
+    border: 1px solid #ced4da;
+    padding: 6px;
+    border-radius: 8px;
+    background-color: #fff;
+    position: relative;
+    height: 32px;
+    font-size: 12px;
+
+    .text {
+      line-height: 17px;
+      height: 17px;
+      width: 100%;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+      padding-right: 21px;
+    }
+
+    i {
+      margin-left: auto;
+    }
+
+    .clear {
+      position: absolute;
+      right: 31px;
+      color: #575e64;
+      font-size: 12px;
+    }
+  }
+
+  ::ng-deep {
+    .text-search {
+      position: relative;
+      display: inline-block;
+      margin-bottom: 0;
+      margin-left: 15px;
+
+      input {
+        width: 300px;
+        padding-right: 37px;
+
+        &:focus {
+          box-shadow: none;
+        }
+      }
+
+      p-button {
+        position: absolute;
+        right: 0;
+        z-index: 9;
+
+        .p-button {
+          background-color: transparent;
+          border: none;
+          color: #8a8a96;
+
+          &:focus {
+            box-shadow: none;
+          }
+        }
+      }
+
+      &.location {
+        input {
+          width: 200px;
+        }
+      }
+    }
+
+    .list-inline {
+      padding: 0;
+      margin: 0 0 0 7px;
+      align-items: center;
+
+      li {
+        margin-right: 15px;
+      }
+    }
+
+    .multiselect-custom-virtual-scroll {
+      .p-multiselect {
+        min-width: 15rem;
+      }
+    }
+  }
+}
+
+.search {
+  display: flex;
+  margin-bottom: 15px;
+
+  ::ng-deep {
+    .p-button {
+      position: absolute;
+      color: #92929d;
+      background: transparent;
+      border: none;
+      padding: 0;
+      top: 21px;
+
+      &:focus,
+      &:active {
+        outline: none;
+        box-shadow: none;
+      }
+
+      span {
+        font-size: 21px;
+      }
+    }
+
+    input {
+      padding-left: 34px;
+      width: 100%;
+
+      &::placeholder {
+        color: #92929d;
+      }
+    }
+  }
+}
+
+.close {
+  position: absolute;
+  right: 15px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  line-height: 32px;
+  text-align: center;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #92929d7e;
+  }
+}

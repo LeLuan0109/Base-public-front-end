@@ -1,0 +1,27 @@
+<m-card [title]="'Diễn biến sắc thái'" styleClass="h-50 min-h-300" class="card-wrapper">
+  <div class="col-4 flex justify-content-end searchTime">
+    <!-- <span *ngFor="let item of optTime" class="mr-2">
+      <span class="label {{item.active ? 'active' : ''}} ">{{item.lable}} </span>
+    </span> -->
+  </div>
+  <div class="grid chart-box">
+    <div class="col-11 pl-20 box-percent">
+      <div *ngFor="let item of sentimentTotals" class="conent-percent sentiment-{{ item.serie }}">
+        <div class="percent-lable">{{ item.percen | number : '1.2-2' }}%</div>
+        <div class="content-label">
+          <i class="{{ optSentimentIcon[item.serie] }}"></i>
+          <span class="ml-1">{{ optSentimentLabel[item.serie] }}</span>
+        </div>
+        <div class="total-label">
+          <span class="total-number">
+            {{ item.value | number : '1.0-0' }}
+          </span>
+          {{ 'thảo luận' }}
+        </div>
+      </div>
+    </div>
+    <div class="col-12 chart">
+      <highcharts-chart *ngIf="options" class="main-chart" [Highcharts]="Highcharts" [options]="options"> </highcharts-chart>
+    </div>
+  </div>
+</m-card>

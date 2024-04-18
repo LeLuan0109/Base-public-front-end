@@ -1,0 +1,57 @@
+<!-- <p-card class="custom-card">
+  <ng-template pTemplate="header">
+    <div class="p-card-body pb-0">
+      <div class="grid">
+        <div class="col-10">
+          <div class="p-card-title">Top nguồn Báo Chí nổi bật</div>
+        </div>
+        <div class="col-2 text-right">
+          <button type="button" class="full-screen-btn" (click)="toggleFullscreen()">
+            <i class="pi pi-search-plus"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+  <div #chartContent class="bg-white relative content-item">
+    <div class="content-box">
+      <div class="p-card-title hidden-title">Top nguồn Báo Chí nổi bật</div>
+      <div class="grid cursor-pointer" *ngFor="let item of websites?.profiles; let i = index"
+        [ngClass]="i%2==0 ? 'even':'odd'">
+        <div class="col-4 lable">
+          <span class="ml-1 ">{{i + 1}}. {{item?.profileId || item?.name}}</span>
+        </div>
+        <div class="col-8">
+          <div class="flex">
+            <div class="bar-wrapper"  (click)="showPosts(item)">
+              <div class="inner-progress-bar top-website-bar" [ngStyle]="{'width.%': (item.posts / websites?.total) * 100 | number: '1.0-2'}"></div>
+            </div>
+            <div class="w-2 ml-2 discuss-number">
+              <span>{{ item.posts | number }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</p-card> -->
+
+<m-card [title]="'Top nguồn Báo Chí nổi bật'" styleClass="h-50 min-h-300" class="card-wrapper">
+  <div class="flex flex-column overflow-y-auto h-full">
+    <div class="grid m-0 website-item" *ngFor="let item of websites?.profiles; let i = index" [ngClass]="i % 2 == 0 ? 'even' : 'odd'">
+      <div class="col-4 lable">
+        <span class="ml-1">{{ i + 1 }}. {{ item?.profileId || item?.name }}</span>
+      </div>
+      <div class="col-8 right-wrapper">
+        <div class="flex right-content">
+          <div class="bar-wrapper" (click)="showPosts(item)">
+            <div class="inner-progress-bar top-website-bar" [ngStyle]="{ 'width.%': (item.posts / maxPostsValue) * 100 | number : '1.0-2' }"></div>
+          </div>
+          <div class="ml-2 discuss-number">
+            <span>{{ item.posts | number }} Thảo luận</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</m-card>

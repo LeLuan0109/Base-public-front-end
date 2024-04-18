@@ -1,0 +1,15 @@
+<div class="progressbar-box">
+  <div class="text-value">
+    <div class="mention" [style.color]="color"> {{value | number: '1.0-0'}}</div>
+    <span *ngIf="icon || image" class="icon">
+      <i [class]="icon" [style.color]="color"></i>
+      <img *ngIf="!icon" [src]="image" width="20">
+    </span>
+  </div>
+  <div class="percent-bar">
+    <div class="percent-bg" [style.background-color]="color"></div>
+    <div class="bar" [style.background-color]="color" [style.width]="rate +'%'">
+      <div class="percent" [ngClass]="{'in': rate > 50, 'zero': rate === 0}" [style.color]="color">{{rate}}%</div>
+    </div>
+  </div>
+</div>
